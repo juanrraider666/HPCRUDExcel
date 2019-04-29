@@ -1,0 +1,13 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block page_header %}{{ 'label.registration_new_user'|trans }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" />
+{% endblock %}
+
+{% block content %}
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock content %}
+

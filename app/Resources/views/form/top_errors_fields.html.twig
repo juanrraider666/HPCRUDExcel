@@ -1,0 +1,28 @@
+{#{% use 'bootstrap_3_layout.html.twig' %}#}
+
+{% block form_row -%}
+    <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+{%- endblock form_row %}
+
+{% block attribute_value_row_content %}
+    {{- form_label(form) -}}
+    {{- form_widget(form) -}}
+{% endblock %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <div class="alert alert-danger bad-info" role="alert" data-element="{{ id }}">
+                {{ error.message|raw }}
+            </div>
+        {%- endfor -%}
+    {%- endif %}
+    {% if show_child_errors is defined and show_child_errors == true and form|length > 0 -%}
+        {%- for child in form -%}
+            {{ form_errors(child, {show_child_errors: true}) }}
+        {%- endfor -%}
+    {%- endif %}
+{%- endblock form_errors %}

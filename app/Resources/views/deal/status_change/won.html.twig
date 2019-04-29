@@ -1,0 +1,20 @@
+{% set is_ajax = app.request.xmlHttpRequest %}
+{% extends is_ajax ? 'base_ajax.html.twig': 'base.html.twig' %}
+
+{% from 'loyalty/buttons.html.twig' import primaryAction as save, back %}
+
+{% block content %}
+    {{ form_start(form, {attr:{id: 'form-deal-change-to-won'}}) }}
+    <div class="row">
+        <div class="margin-bottom-15 margin-top-10">{{ 'label.change_status_to_won.description'|trans }}</div>
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+    </div>
+    <div class="row">
+        <div class="pull-right form-actions">
+            {{ save() }}
+            <a href="{{ path('deal_list') }}" class="btn btn-default" data-dismiss="modal">{{ 'btn.back'|trans }}</a>
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

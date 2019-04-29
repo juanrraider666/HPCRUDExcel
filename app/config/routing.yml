@@ -1,0 +1,67 @@
+home:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        permanent: true
+        route: homepage
+
+app:
+    resource: "@AppBundle/Controller/"
+    prefix: /{_locale}
+    type:    annotation
+    requirements:
+        _locale: '%locales.string%'
+
+manuel_translation:
+    resource: "@ManuelTranslationBundle/Controller/"
+    type:     annotation
+    prefix:   /{_locale}/admin/trans
+
+easy_admin_bundle:
+    resource: "@AppBundle/Controller/EasyAdminController.php"
+    type:     annotation
+    prefix:   /{_locale}/_admin
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /{_locale}
+    requirements:
+        _locale: '%locales.string%'
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /{_locale}/profile
+    requirements:
+        _locale: '%locales.string%'
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /{_locale}/register
+    requirements:
+        _locale: '%locales.string%'
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /{_locale}/resetting
+    requirements:
+        _locale: '%locales.string%'
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /{_locale}/profile
+    requirements:
+            _locale: '%locales.string%'
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /{_locale}/api
+    defaults: { _format: html }
+
+gbenitez_attribute:
+    resource: "@AttributeBundle/Controller/"
+    type:     annotation
+    prefix:   /_admin/attributes

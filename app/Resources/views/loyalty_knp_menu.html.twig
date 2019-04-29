@@ -1,0 +1,11 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% from 'loyalty/icons.html.twig' import icon_edit_menu %}
+
+{%- block label -%}
+    {% set label = item.label|trans( item.getExtra('translation_params', {}), item.getExtra('translation_domain', 'menu') ) %}
+    {{ label|raw }}
+    {% if item.getExtra('is_editable', false) -%}
+        {{ icon_edit_menu('btn-sort-menu') }}
+    {%- endif -%}
+{%- endblock -%}

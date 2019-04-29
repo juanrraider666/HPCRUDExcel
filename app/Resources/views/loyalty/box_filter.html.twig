@@ -1,0 +1,32 @@
+{% form_theme form 'form/filters.html.twig' %}
+{% set _header = block('header') %}
+{% set formSubmited = form.vars.submitted and app.request.get(form.vars.name, false) %}
+<div class="panel panel-filter panel-{{ type|default('default') }}" {% if id is defined %}id="{{ id }}"{% endif %}>
+    {% block form_start %}{{ form_start(form, {attr: {'class':'', 'novalidate' : 'novalidate'}}) }}{% endblock %}
+    {#{% if _header is not empty %}#}
+    <div class="panel-heading toggle-filter {% if formSubmited %} hide{% endif %}" style="cursor:pointer;">
+        {#{{ _header|raw }}#}
+        <h3 class="panel-title">
+            {% block header %}
+                    <i class=" glyphicon glyphicon-plus"></i> {{ 'label.show_filters'|trans }}
+            {% endblock %}
+        </h3>
+    </div>
+    {#{% endif %}#}
+    <div class="panel-body {% if not formSubmited %} hide{% endif %}">
+        {% block fields %}
+            {{ form_widget(form, {container_class: container_class|default('col-sm-3')}) }}
+        {% endblock %}
+    </div>
+    <div class="panel-footer {% if not formSubmited %} hide{% endif %}">
+        <div class="text-right">
+            {% block buttons %}
+                {% from 'loyalty/buttons.html.twig' import search, clearFilters %}
+                {{ search() }} {{ clearFilters(clear_path) }}
+            {% endblock %}
+        </div>
+    </div>
+    {% block form_end %}{{ form_end(form) }}{% endblock %}
+</div>
+
+

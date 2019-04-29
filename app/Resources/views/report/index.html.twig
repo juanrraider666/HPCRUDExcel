@@ -1,0 +1,43 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block main_content %}
+
+<div class="container">
+    <section class="bg_white">
+        <div class="row">
+            <div class="col-sm-12 semi_txt s35 m_b20"> {{ 'label.report_title'|trans }} </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <p class="bg_white_report">{{ 'label.report_list_users'|trans }}</p>
+            </div>
+            <div class="col-md-4">
+               <a href="#" class="button-gray-dowloand" id="downloadExcel">{{ 'label.report_button_dowloand'|trans }}</a>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock main_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/jquery.fileDownload.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#downloadExcel').on('click', function(){
+                $.ajax({
+                    url: "{{ path('report_registration') }}",
+                }).done(function(url) {
+                    $.fileDownload(url);
+                });
+            });
+        });
+    </script>
+{% endblock javascripts %}

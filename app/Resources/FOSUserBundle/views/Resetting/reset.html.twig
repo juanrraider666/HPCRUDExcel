@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+
+{% block page_header %}{{ 'title.change_password'|trans }}{% endblock %}
+
+{% from 'loyalty/buttons.html.twig' import submit %}
+{% block content %}
+    <fieldset class="margin-top-15">
+        <div class="row bg_white">
+
+            {{ form_start(form, {
+                action: path('fos_user_resetting_reset', {'token': token}),
+                'attr': {'novalidate': 'novalidate'}
+            }) }}
+
+            <div class="form_container">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(form.new.first, null, {'label_attr':{'class': 'col-sm-4 control-label' }}) }}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.new.first, { 'attr': { 'autocomplete': 'off' }  }) }}
+                            {{ form_errors(form.new.first) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        {{ form_label(form.new.second, null, {'label_attr':{'class': 'col-sm-4 control-label' }}) }}
+                        <div class="col-sm-8">
+                            {{ form_widget(form.new.second, {  'attr': { 'autocomplete': 'off' } }) }}
+                            {{ form_errors(form.new.second) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 text-right p_t30 p_b30">
+                {{ submit('resetting.reset.submit'|trans({}, 'FOSUserBundle'), 'class = bg_orange') }}
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    </fieldset>
+{% endblock %}

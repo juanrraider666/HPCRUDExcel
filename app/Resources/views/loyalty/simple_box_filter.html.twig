@@ -1,0 +1,21 @@
+{% set search_id = search_id|default('now'|date('u')) %}
+{% from 'loyalty/buttons.html.twig' import search, clearFilters %}
+<div class="panel panel-filter panel-{{ type|default('default') }}" {% if id is defined %}id="{{ id }}"{% endif %}>
+    <form method="get" novalidate="novalidate">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-3 col-sm-2 col-md-1">
+                    <label for="{{ search_id }}">{{ 'label.search'|trans }}</label>
+
+                </div>
+                <div class="col-xs-9 col-sm-6 col-md-8">
+                    <input id="search-filter-{{ search_id }}" type="search" class="form-control input-sm" name="search" placeholder="{{ placeholder|default }}" value="{{ app.request.query.get('search') }}"/>
+                </div>
+                <div class="col-sm-4 col-md-3 col-xs-9 col-xs-offset-3 col-sm-offset-0">
+                    <div class="visible-xs" style="margin-top: 10px"></div>
+                    {{ search() }} {{ clearFilters(clear_path|default(path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')))) }}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

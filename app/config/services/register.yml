@@ -1,0 +1,5 @@
+services:
+    app.change_password.form.type:
+        class: AppBundle\Form\Type\ChangePasswordFormType
+        tags:
+            - { name: form.type, alias: change_password }

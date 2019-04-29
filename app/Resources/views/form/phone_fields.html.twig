@@ -1,0 +1,38 @@
+{% block phone_admin_widget %}
+    {% set input_size = input_size|default('md') %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="select-style">
+                {{ form_widget(form.type, {attr:{placeholder: form.type.vars.label, class: ' select-style-table input-'~input_size}}) }}
+            </div>
+        </div>
+        <div class="col-sm-2 jp_r">
+            <div {% if not form.countryCode.vars.valid %}class="has-error"{% endif %}>
+
+                    {{ form_widget(form.countryCode, {attr:{placeholder: 'label.country', class: 'input-'~input_size, type: 'number',}}) }}
+
+            </div>
+        </div>
+        <div class="col-sm-2 jp_r">
+            <div {% if not form.areaCode.vars.valid %}class="has-error"{% endif %}>
+                {{ form_widget(form.areaCode, {attr:{placeholder: 'label.area', class: 'input-'~input_size, type: 'number',}}) }}
+            </div>
+        </div>
+        <div class="col-sm-5 jp_r">
+            <div {% if not form.phoneNumber.vars.valid %}class="has-error"{% endif %}>
+                {{ form_widget(form.phoneNumber, {attr:{placeholder: 'label.number', class: 'input-'~input_size, type: 'number'}}) }}
+            </div>
+            {% if custom_delete_button is defined and custom_delete_button == true %}
+                <div><a href="#" class="loyalty-collection-delete"><i class="fa fa-minus-circle"></i></a></div>
+            {% endif %}
+        </div>
+        {% if errors|length > 0 %}
+
+                <div>{{ form_errors(form) }}</div>
+
+        {% endif %}
+    </div>
+{% endblock %}
+{% block phone_admin_row %}
+    {{ form_widget(form) }}
+{% endblock %}

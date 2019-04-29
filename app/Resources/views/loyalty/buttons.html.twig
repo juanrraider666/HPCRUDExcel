@@ -1,0 +1,175 @@
+{# Los "-" guiones que se ven entre las definicones de etiquetas {%- y -%} son para quitar espacios en blanco y minimizar el código generado #}
+
+{# Macros para botones de formulario #}
+{%- macro button(text, type, icon = null, size, htmlAttributes) -%}
+    <button type="button" class="btn btn-{{ type|default('default') }} btn-{{ size|default('md') }}" {{ htmlAttributes|raw }}>
+        {{ icon }} {{ text }}
+    </button>
+{%- endmacro -%}
+
+{%- macro submit(text, type = null, icon, size, htmlAttributes) -%}
+    {#{% from 'loyalty/icons.html.twig' import icon_save %}#}
+    <button type="submit" class="btn btn-{{ type|default('default') }} btn-{{ size|default('md') }}" {{ htmlAttributes|raw }}>
+        {#{ icon|default(icon_save()) }#}{{ text|default('btn.save'|trans) }}
+    </button>
+{%- endmacro -%}
+
+{%- macro btnYes(text, type, icon, size, htmlAttributes) -%}
+    {% from 'loyalty/icons.html.twig' import icon %}
+    <button type="submit" id = "btnyes" class="btn btn-{{ type|default('primary') }} btn-{{ size|default('md') }} btn-yes" {{ htmlAttributes|raw }}>
+        {{ icon|default(icon('thumbs-o-up')) }} {{ text|default('label.yes'|trans) }}
+    </button>
+{%- endmacro -%}
+
+{%- macro btnNo(text, type, icon, size, htmlAttributes) -%}
+    {% from 'loyalty/icons.html.twig' import icon %}
+    <button type="submit" class="btn btn-{{ type|default('primary') }} btn-{{ size|default('md') }} btn-no" {{ htmlAttributes|raw }}>
+        {{ icon|default(icon('thumbs-o-down')) }} {{ text|default('label.no'|trans) }}
+    </button>
+{%- endmacro -%}
+
+{# Macros para links con estilos de boton #}
+{%- macro link(url, text, type = null, icon = null, class, htmlAttributes) -%}
+    <a href="{{ url }}" class="{{ type }} {{ class }}" {{ htmlAttributes|raw }} title="{{ text }}">
+        {# {{ icon }}<span class="hidden-xs">{{ text }}</span>#}
+        {%- if icon -%}{{ icon }} {% endif -%}{{ text }}
+    </a>
+{%- endmacro -%}
+
+{%- macro primaryLink(url, text, icon = null, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {{ links.link(url, text, 'btn btn-primary', icon, class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro successLink(url, text, icon = null, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {{ links.link(url, text, 'btn btn-success', icon, class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro infoLink(url, text, icon = null, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {{ links.link(url, text, 'btn btn-info', icon, class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro warningLink(url, text, icon = null, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {{ links.link(url, text, 'btn btn-warning', icon, class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro dangerLink(url, text, icon = null, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {{ links.link(url, text, 'btn btn-danger', icon, class, htmlAttributes) }}
+{%- endmacro -%}
+
+{# Macros para botones de operaciones CRUD #}
+{%- macro back(url, text, icon = null, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {#{% from 'loyalty/icons.html.twig' import icon_back %}#}
+    {#{{ links.link(url, text|default('btn.back'|trans), 'btn-back btn btn-white btn-'~size|default('md'), icon|default(icon_back())) }}#}
+    {{ links.link(url, text|default('btn.back'|trans), 'btn-back btn button-gray_light btn-'~size|default('md')) }}
+{%- endmacro -%}
+
+{%- macro show(url, text, icon = null, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_show %}
+    {{ links.link(url, text|default('btn.show'|trans), 'btn-show btn btn-link btn-'~size|default('xs'), icon|default(icon_show()), class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro edit(url, text, icon = null, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_edit %}
+    {{ links.link(url, text|default('btn.edit'|trans), 'btn-edit btn btn-link btn-'~size|default('xs'), icon|default(icon_edit()), class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro delete(url, text, icon = null, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_remove %}
+    {{ links.link(url, text|default('btn.delete'|trans), 'btn-delete btn btn-link btn-'~size|default('xs'), icon|default(icon_remove()), class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro subList(url, text, icon = null, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_sublist %}
+    {{ links.link(url, text, 'btn-sub-list btn btn-link btn-'~size|default('xs'), icon|default(icon_sublist()), class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro add(url, text, icon = null, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_add %}
+    {{ links.link(url, text|default('btn.add'|trans), 'btn-add btn btn-primary btn-'~size|default('md'), icon|default(icon_add()), class, htmlAttributes) }}
+    {#{{ links.link(url, text|default('btn.add'|trans), 'btn-add btn btn-primary btn-'~size|default('md'), null, class, htmlAttributes) }}#}
+{%- endmacro -%}
+
+{%- macro save(text, size, class, htmlAttributes) -%}
+    {% import _self as btn %}
+    {#{% from 'loyalty/icons.html.twig' import icon_save %}#}
+    {#{{ btn.submit(text|default('btn.save'|trans), ' btn-save btn-red', icon_save(), size, htmlAttributes) }}#}
+    {{ btn.submit(text|default('btn.save'|trans), ' btn-primary '~class, null, size, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro primaryAction(text, size, class, htmlAttributes) -%}
+    {% import _self as btn %}
+    {{ btn.submit(text|default('btn.save'|trans), ' btn-primary '~class, null, size, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro accept(text, size, class, htmlAttributes) -%}
+    {% import _self as btn %}
+    {% from 'loyalty/icons.html.twig' import icon_save %}
+    {{ btn.submit(text|default('btn.accept'|trans), ' btn-accept btn-default', icon_save(), size, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro decline(text, size, class, htmlAttributes) -%}
+    {% import _self as btn %}
+    {% from 'loyalty/icons.html.twig' import icon_save %}
+    {{ btn.submit(text|default('btn.decline'|trans), ' btn-decline btn-default', icon_save(), size, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro search(text, size) -%}
+    {% import _self as btn %}
+    {% from 'loyalty/icons.html.twig' import icon_search %}
+    {{ btn.submit(text|default('btn.search'|trans), 'btn-search btn btn-primary btn-'~size|default('md'), icon_search()) }}
+{%- endmacro -%}
+
+{%- macro clearFilters(url, text, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_clear %}
+    {{ links.link(url, text|default('label.my_bills_button_clear'|trans), 'button-gray_light btn-clear-filters btn btn-default btn-'~size|default('md'), icon_clear(), class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro dropdown(text = 'Clear', items, size) -%}
+    <div class="dropdown">
+        <a data-toggle="dropdown" href="#">{{ text }}</a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+            {%- for item in items -%}
+                {%- if item == '---' -%}
+                    <li class="divider"></li>
+                {%- else %}
+                    <li>{{- item|raw -}}</li>
+                {%- endif -%}
+            {%- endfor -%}
+        </ul>
+    </div>
+{%- endmacro -%}
+
+{%- macro linkYes(url, text, icon, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {{ links.link(url, text|default('btn.yes'|trans|title), 'link-yes btn btn-primary btn-'~size|default('md'), null, class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro linkNo(url, text, icon, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon %}
+    {{ links.link(url, text|default('label.no'|trans|title), 'link-no btn btn-default btn-'~size|default('md'), icon|default(icon('thumbs-o-down')), class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro redeem(url, text, icon, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_redeem %}
+    {{ links.successLink(url, text|default('label.redeem_now'|trans|title), icon|default(icon_redeem()), 'link-redeem btn-'~size~' '~class, htmlAttributes) }}
+{%- endmacro -%}
+
+{%- macro exportLink(url, text, icon, size, class, htmlAttributes) -%}
+    {% import _self as links %}
+    {% from 'loyalty/icons.html.twig' import icon_redeem %}
+    {{ links.primaryLink(url, text|default('label.export'|trans|title), icon, 'link-export btn-'~size~' '~class, htmlAttributes) }}
+{%- endmacro -%}

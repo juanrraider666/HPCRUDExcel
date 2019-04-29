@@ -1,0 +1,573 @@
+.bg-top-1 , .bg-top-2 {
+    background: none;
+    color: #000 !important;
+}
+.container, .container-fluid {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+.form-control {
+    background: transparent none repeat scroll 0 0 !important;
+    border: 2px solid #abadb3;
+    border-radius: 0;
+    font-family: "HPSimplified",arial !important;
+    font-size: 14px !important;
+    height: 34px !important;
+    margin: 0;
+    outline: medium none;
+    padding: 0 5px;
+    width: 100%;
+}
+
+.col-sm-6 .select_generico_tabla, .margin-top-25 .select_generico_tabla {
+    background: #fff url("../../../css/img/bg_select_generico.gif") no-repeat scroll right center !important;
+    overflow: hidden;
+    width: 100% !important;
+    height: 34px !important;
+    font-size: 14px;
+}
+
+.info-right {
+    margin-bottom: -48px;
+}
+.title-form {
+    font-size: 20px;
+    line-height: 40px;
+}
+/*.title-top{
+    padding: 0 !important;
+}*/
+
+.col-sm-6 .select_generico_tabla  select, .margin-top-25 .select_generico_tabla select{
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -o-appearance: none;
+
+}
+
+select[multiple], select[size],textarea.form-control {
+    height: auto !important;
+}
+
+#appbundle_deal_project_description{
+    height: 145px !important;
+}
+select option{
+    padding: 7px;
+}
+#appbundle_deal_attributes_soluciones_interes_value{
+    padding: 0;
+}
+
+
+input{
+    font-family: "HPSimplified",arial !important;
+}
+
+label {
+   font-size: 14px !important;
+}
+
+
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.text-right .btn-primary{
+   margin-right: 0 !important;
+}
+
+
+.btn-primary{
+    background-color: #0096d6 !important;
+    color: #ffffff;
+    cursor: pointer;
+    height: 35px;
+    padding: 7px 20px;
+    border-radius: 0 4px  !important;
+    display: inline-block;
+    border:0 !important;
+    font-weight: bold !important;
+    margin-right: 5px !important;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #006699 !important;
+    background-image: none !important;
+    border:0 !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+.btn-default{
+    background-color: #767676 !important;
+    color: #ffffff !important;
+    cursor: pointer;
+    height: 35px;
+    padding: 7px 20px;
+    border-radius: 0 4px  !important;
+    display: inline-block;
+    border:0 !important;
+    text-shadow: none;
+    font-weight: bold !important;
+}
+
+.btn-default:hover, .btn-default:focus {
+    background-color: #5A5A5A !important;
+    background-image: none !important;
+    border:0 !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    text-shadow: none;
+}
+.btn-sm {
+    border-radius: 3px;
+    font-size: 12px;
+    height: 35px !important;
+    line-height: 1.5;
+    padding: 7px 10px;
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    font-size: 14px !important;
+    padding: 7px 20px;
+}
+
+.datepicker table tr td, .datepicker table tr th {
+    border-radius: 0 4px !important;
+}
+.datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:focus, .datepicker table tr td.active:hover:focus, .datepicker table tr td.active.disabled:focus, .datepicker table tr td.active.disabled:hover:focus, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active.active:hover, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled.active:hover, .open .dropdown-toggle.datepicker table tr td.active, .open .dropdown-toggle.datepicker table tr td.active:hover, .open .dropdown-toggle.datepicker table tr td.active.disabled, .open .dropdown-toggle.datepicker table tr td.active.disabled:hover {
+    background-color: #0682ca !important;
+    margin-top: -2px;
+    padding-top: 7px !important;
+    vertical-align: middle !important;
+}
+
+.text-right .btn-primary{
+    float: right;
+}
+.text-right .btn-default{
+    float: right;
+    margin-right: 10px;
+}
+.row .pull-right{
+    margin-top: 25px !important;
+    width: 205px !important;
+}
+.pull-right{
+    margin-top: -20px !important;
+    padding-right: 0;
+}
+
+
+
+
+.col-right{
+    border: 1px solid #b0b2b7;
+    border-radius: 0 10px;
+    background: #fff;
+    *background: url('../../../css/img/bg_tabs_grow.png');
+    *background-repeat: repeat-x;
+
+}
+
+.action_dropdown_menu{
+    height: 30px;
+    width: 60px;
+    border: 2px solid #5A5A5A;
+    border-bottom: none;
+    float: right;
+    margin-top: -30px;
+    margin-right: -2px;
+    background: #fff;
+    background: url('../../../css/img/back_actions.jpg') no-repeat center;
+}
+.dropdown .btn-sm{
+    height: 30px !important;
+    width: 60px !important;
+    background: url('../../../css/img/back_actions.jpg') no-repeat center !important;
+    font-size: 0 !important;
+     text-shadow:none !important;
+}
+.btn-danger, .btn-default, .btn-info, .btn-primary, .btn-success, .btn-warning {
+    box-shadow: none;
+}
+
+.dropdown .btn span{
+    display: none;
+}
+
+.dropdown-menu {
+    border-radius: 0px !important;
+    font-size: 14px !important;
+    min-width: 130px !important;
+    border: 2px solid #5A5A5A;
+    padding: 0;
+    margin-top: 27px;
+    margin-right: 10px !important;
+
+}
+
+.dropdown-menu .btn-sm{
+    background: url('../../../css/img/back_actions.jpg') no-repeat center !important;
+    height: 40px !important;
+    width: 60px !important;
+}
+
+.dropdown-menu > li > a {
+    padding: 5px 20px;
+}
+
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover{
+    background: #0197D6 !important;
+    color: #fff !important;
+}
+
+.fa{
+    display: none;
+}
+
+
+
+/*---------- modals -------------------------------*/
+.modal-header h4{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.ajax-content h4{
+    font-size: 16px;
+}
+.modal-body .row{
+    border-top: solid 1px #ccc;
+}
+.well {
+    border: none;
+    box-shadow: none;
+    min-height: 20px;
+    background: none;
+
+    font-size: 16px;
+    margin-bottom: 0;
+    padding: 20px 0;
+}
+
+.modal-content {
+    padding: 5px 20px 20px !important;
+}
+.modal-content .pull-right {
+    margin-bottom: 0 !important;
+}
+
+.modal-body .col-md-6, .modal-body{
+    margin-left: 0 !important;
+    padding: 0 !important;
+
+}
+
+.close{
+    background: transparent url("../../../css/img/s-21px-hpe.png") no-repeat scroll 0 -500px !important;
+    display: inline-block !important;
+    height: 17px !important;
+    width: 17px !important;
+    font-size: 0 !important;
+}
+
+.modal .modal-header {
+    padding: 15px 0 5px 30px !important;
+}
+
+.modal-content {
+    padding: 0 15px 20px !important;
+}
+
+/*---------- fin modals ------------------------*/
+
+
+
+/*---------- tablas ------------------------*/
+
+.table-layout .table > thead > .tr-first > th {
+    background-color: #767676;
+    border-bottom: medium none !important;
+    color: #fff;
+    vertical-align: middle;
+    line-height: 18px;
+    font-size: 14px;
+    line-height: 35px !important;
+}
+table {
+    background-color: #fff;
+    border: 2px solid #ccc;
+}
+td{
+    vertical-align: middle !important;
+
+}
+.table-layout .table > thead > tr > td, .table-layout .table > thead > tr > th {
+     padding: 5px !important;
+}
+
+.table-deals-list, .text-right{
+    text-align: center !important;
+}
+.text-left{
+    margin-left: 15px !important;
+}
+
+.table-layout .table > thead > tr > th, .table-layout .table > tbody > tr > td, .table-layout .table > tfoot > tr > td {
+    border: 1px solid #ccc !important;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    border: 1px solid #ccc !important;
+}
+.table-layout tr:nth-child(2n+1) {
+    background-color: #fff;
+}
+.table-phone{
+    border: none;
+}
+
+
+.ajax-content fieldset:nth-child(1) td:first-child,
+.ajax-content fieldset:nth-child(2) td:first-child,
+table.deal-show-info-container td:first-child{
+    background: #F2F2F2;
+}
+
+.ajax-content fieldset:nth-child(3) thead{
+    background: #F2F2F2;
+}
+
+
+
+/*---------- fin tablas --------------------*/
+
+.margin-top-25 {
+    margin-top: 18px;
+}
+.margin-top-35 {
+    margin-top: 0px !important;
+}
+.col-md-3 {
+    width: 23%;
+}
+
+
+.ly-comments-container {
+    background-color: #f6f6f6;
+    border: 1px solid #ddd;
+    border-radius:0 6px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 10px;
+}
+.panel{
+    border-radius:0;
+}
+.panel cite{
+    font-size: 11px;
+}
+.panel-heading {
+    background: #fafafa !important;
+    border-radius: 0 !important;
+}
+
+/*---------- radio buttons --------------------*/
+
+  input[type="radio"], input[type="checkbox"] {
+    display: none;
+  }
+
+ .radio label   {
+    padding-left: 1.25em;
+    background: url('../../../css/img/s-21px-hpe.png') no-repeat top left;
+    background-position: 0 -225px;
+    *background-position: left -317px !important;
+    padding-left: 20px !important;
+  }
+
+  input[type="radio"]:checked + label {
+    background-position: 0 -71px; width: 24px; height: 24px;
+  }
+
+/*---------- fin radio buttons ----------------*/
+
+
+
+
+
+
+.pagination-layout .pagination > li > a, .pagination-layout .pagination > li > a:hover, .pagination-layout .pagination > li > a:focus, .pagination-layout .pagination > li > a:active {
+    color: #1D8CBA !important;
+}
+.pagination-layout {
+    width: 940px;
+    margin-top: 25px;
+}
+.pagination-layout .pagination {
+    float: right;
+}
+
+
+
+
+html {
+    font-size: 12px !important;
+}
+body {
+    font-size: 13px !important;
+}
+
+
+.bg-banner-2 {
+    background-image: none;
+}
+
+.bg-banner-2 span, .bg-banner-2 .text-banner{
+    color: #222;
+}
+
+.text-banner:first-child {
+    font-size: 16px;
+}
+
+.has-error .form-control {
+    border-color: #cd0a0a;
+}
+.alert {
+    border-radius: 0;
+}
+.alert-danger {
+    color: #cd0a0a;
+}
+
+
+
+@font-face {
+  font-family: 'HPSimplified';
+  src: url("../../../css/fonts/hps/latin-e-regular-eot.eot");
+  /* IE9 compat */
+  src: url("../../../css/fonts/hps/latin-e-regular-eot.eot?#iefix") format("embedded-opentype"), url("../../../css/fonts/hps/latin-e-regular-woff.woff") format("-woff.woff"), url("../../../css/fonts/hps/latin-e-regular-ttf.ttf") format("truetype");
+  /*iOS, Android, Safari*/
+  font-weight: normal;
+  font-style: normal; }
+
+/*BOLD*/
+@font-face {
+  font-family: 'HPSimplifiedBold';
+  src: url("../../../css/fonts/hps/latin-e-bold-eot.eot");
+  /* IE9 compat */
+  src: url("../../../css/fonts/hps/latin-e-bold-eot.eot?#iefix") format("embedded-opentype"), url("../../../css/fonts/hps/latin-e-bold-woff.woff") format("-woff.woff"), url("../../../css/fonts/hps/latin-e-bold-ttf.ttf") format("truetype");
+  /*iOS, Android, Safari*/
+  font-weight: bold;
+  font-style: normal; }
+
+/*LIGHT*/
+@font-face {
+  font-family: 'HPSimplifiedLight';
+  src: url("../../../css/fonts/hps/latin-e-light-eot.eot");
+  /* IE9 compat */
+  src: url("../../../css/fonts/hps/latin-e-light-eot.eot?#iefix") format("embedded-opentype"), url("../../../css/fonts/hps/latin-e-light-woff.woff") format("-woff.woff"), url("../../../css/fonts/hps/latin-e-light-ttf.ttf") format("truetype");
+  /*iOS, Android, Safari*/
+  font-weight: normal;
+  font-style: normal; }
+
+/*REGULAR ITALIC*/
+@font-face {
+  font-family: 'HPSimplified';
+  src: url("../../../css/fonts/hps/latin-e-regular-italic-eot.eot");
+  /* IE9 compat */
+  src: url("../../../css/fonts/hps/latin-e-regular-italic-eot.eot?#iefix") format("embedded-opentype"), url("../../../css/fonts/hps/latin-e-regular-italic-woff.woff") format("-woff.woff"), url("fonts/hps/latin-e-regular-italic-ttf.ttf") format("truetype");
+  /*iOS, Android, Safari*/
+  font-weight: normal;
+  font-style: italic; }
+
+/*BOLD ITALIC*/
+@font-face {
+  font-family: 'HPSimplified';
+  src: url("../../../css/fonts/hps/latin-e-bold-italic-eot.eot");
+  /* IE9 compat */
+  src: url("../../../css/fonts/hps/latin-e-bold-italic-eot.eot?#iefix") format("embedded-opentype"), url("../../../css/fonts/hps/latin-e-bold-italic-woff.woff") format("-woff.woff"), url("../../../css/fonts/hps/latin-e-bold-italic-ttf.ttf") format("truetype");
+  /*iOS, Android, Safari*/
+  font-weight: bold;
+  font-style: italic; }
+
+/*LIGHT ITALIC*/
+@font-face {
+  font-family: 'HPSimplifiedLight';
+  src: url("../../../css/fonts/hps/latin-e-light-italic-eot.eot");
+  /* IE9 compat */
+  src: url("../../../css/fonts/hps/latin-e-light-italic-eot.eot?#iefix") format("embedded-opentype"), url("../../../css/fonts/hps/latin-e-light-italic-woff.woff") format("-woff.woff"), url("../../../css/fonts/hps/latin-e-light-italic-ttf.ttf") format("truetype");
+  /*iOS, Android, Safari*/
+  font-weight: normal;
+  font-style: italic; }
+
+/*Importing typography-western*/
+body, input {
+  font-family: HPSimplified, Arial !important; }
+
+body {
+  font-size: 100%; }
+
+h1, h2, h3 {
+  font-weight: bold; }
+
+h1 {
+  font-size: 32px;
+  font-size: 2rem;
+  /*=32px*/
+  line-height: 32px;
+  line-height: 2rem;
+  /*=32px*/
+  margin-bottom: 9px;
+  margin-bottom: 0.5625rem;
+  /*=9px*/ }
+
+h2 {
+  font-size: 24px;
+  font-size: 1.5rem;
+  /*=24px*/
+  line-height: 30px;
+  line-height: 1.875rem;
+  /*=30px*/
+  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
+  /*=5px*/ }
+
+h3 {
+  font-size: 20px;
+  font-size: 1.25rem;
+  /*=20px*/
+  line-height: 24px;
+  line-height: 1.5rem;
+  /*=24px*/
+  margin-bottom: 5px;
+  margin-bottom: 0.3125rem;
+  /*=5px*/ }
+
+h4, h5, h6 {
+  font-weight: normal;
+  font-size: 16px;
+  font-size: 1rem;
+  /*=16px*/
+  line-height: 18px;
+  line-height: 1.125rem;
+  /*=18px*/ }
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .deal-form-project-container .col-sm-6:nth-child(odd) {
+        padding-right: 0;
+    }
+
+    .deal-form-products-container {
+        padding-left: 0;
+    }
+}
+
+

@@ -1,0 +1,60 @@
+.sortable-menu-item {
+    position: relative;
+}
+
+.btn-sort-menu {
+    display: none;
+    position: absolute;
+    top: 50%;
+    margin-top: -7px;
+    right: 5px;
+}
+
+.btn-sort-menu:hover {
+    font-size: 2em;
+    margin-top: -12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    right: -5px;
+    /*top: 0px;*/
+}
+
+/*.inline-edit-menu:first-child > .sortable-menu-item > a > .btn-sort-menu{*/
+/*top: 10px;*/
+/*}*/
+/*.inline-edit-menu:first-child > .sortable-menu-item > a > .btn-sort-menu:hover{*/
+/*top: 5px;*/
+/*}*/
+.sortable-menu-item:hover > a > .btn-sort-menu {
+    display: inline-block;
+}
+
+.sortable-menu-item .force-visible {
+    display: block !important;
+}
+
+.ly-comments-container{
+    border: 1px solid #ddd;
+    padding: 10px;
+    max-height: 500px;
+    overflow: auto;
+    /*margin: 10px;*/
+    border-radius: 4px;
+    background-color: #f6f6f6;
+}
+.ly-comments-container:empty{padding: 0px; border: 0px none}
+.ly-comments-container .ly-comment-item{
+    margin-bottom: 20px;
+}
+.ly-comments-container .ly-comment-item .fos_comment_comment_replies{
+    padding-left: 20px;
+    border-left: 3px solid #ddd;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.ly-comments-container .ly-comment-item .panel{
+    margin-bottom: 5px;
+}
+.ly-comments-container .ly-comment-item .fos_comment_comment_reply{
+    margin-left: 10px;
+}

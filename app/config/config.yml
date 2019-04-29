@@ -1,0 +1,173 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: easy_admin.yml }
+    - { resource: services.yml }
+    - { resource: public_domains.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+    assets:
+        packages:
+            deal_supports:
+                base_path: '/uploads/deal'
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - "form/fields.html.twig"
+            - "@Attribute/form/fields.html.twig"
+    globals:
+        closure_promo: true
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ "FOSCommentBundle" ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        mapping_types:
+            enum: string
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+
+    orm:
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+        dql:
+            datetime_functions:
+                month: AppBundle\Doctrine\Dql\Month
+                year: AppBundle\Doctrine\Dql\Year
+        mappings:
+            translatable:
+                type: annotation
+                alias: Gedmo
+                prefix: Gedmo\Translatable\Entity
+                # make sure vendor library location is correct
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Translatable/Entity"
+        resolve_target_entities:
+            gbenitez\Bundle\AttributeBundle\Entity\AttributeOwnerInterface: AppBundle\Entity\Loyalty
+        filters:
+            loyalty_filter: AppBundle\Doctrine\Filter\LoyaltyFilter
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    auth_mode: login
+    port :     %mailer_port%
+    spool:     { type: memory }
+
+manuel_translation:
+    locales: [en, es] # Se deben definir los locales que el translator usará
+    bundles:          # Los bundles de donde serán leidas las traducciones para pasarlas a la Base de Datos.
+        - AppBundle
+
+knp_paginator:
+    page_range: 10                      # default page range used in pagination control
+#    default_options:
+#        page_name: page                # page query parameter name
+#        sort_field_name: sort          # sort field query parameter name
+#        sort_direction_name: direction # sort direction query parameter name
+#        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: loyalty/pagination.html.twig     # sliding pagination controls template
+
+#simple_sso_client:
+#    roles_from_profile: false
+#    remote_connection_service: simple_sso.remote_connection
+#    roles_resolver_service: app.security.roles_resolver.loyalty
+          
+fos_comment:
+    db_driver: orm
+    class:
+        model:
+            comment: AppBundle\Entity\DealComment
+            thread: AppBundle\Entity\DealThread
+
+attribute:
+    target_entities:
+        Deal: 'Deal'
+        Project: 'Project'
+        Company: 'Company'
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+    registration:
+        form:
+            type: AppBundle\Form\Type\RegistrationFormType
+            handler: app.form.handler.registration
+            validation_groups: [AppBundle\Entity\User, determineValidationGroups]
+
+    service:
+        user_manager: app.user_manager
+        #mailer: app.fos_user_mailer
+        mailer: fos_user.mailer.default
+
+    from_email:
+        address: "%mailer_from_email%"
+        sender_name: "%mailer_from_name%"
+
+    change_password:
+        form:
+            type: change_password
+app:
+    email:
+        from_email: "%mailer_from_email%"
+        from_name:  "%mailer_from_name%"
+        options:
+            transactional_group_id: "%mailer_transactional_group_id%"
+            transactional_group_name: "%mailer_transactional_group_name%"
+        templates:
+            deal_delete: deal.delete
+            deal_approve: deal.approve
+            deal_rejected: deal.rejected

@@ -1,0 +1,35 @@
+# This file is auto-generated during the composer install
+parameters:
+    stof_doctrine_extensions.default_locale: default_locale
+    export_file_properties:
+        application_name: 'HP VIP Club'
+        creator: 'HP VIP Club'
+        title: Excel
+        path: "%kernel.root_dir%"
+    title_app_name: HP VIP CLUB
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: 3306
+    database_name: vip vivo
+    database_user: root
+    database_password: ''
+    mailer_transport: smtp
+    mailer_host: smtp.mailtrap.io
+    mailer_user: aeaba2bd0a79f1
+    mailer_password: 1c96ccde3eb72a
+    mailer_port: 2525
+    locale: es
+    secret: vipclubmexico
+    deal.days_close_expire: '+30 days'
+    locales.string: en|es|pt
+    locales.array:
+        - en
+        - es
+        - pt
+    app.validation.email.pattern: .+
+    mailer_transactional_group_id: 4650048
+    mailer_transactional_group_name: 'HPI VIP CLUB'
+    mailer_from_email: acortes@optimeconsulting.com
+    mailer_from_name: 'HP VIP Club'
+    app.report.user: optime_user
+    app.report.password: Optime$123

@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'UniversLTStd47LightCondensed';
+    src: url('universltstd_cn/universltstd-lightcn.eot');
+    src: url('universltstd_cn/universltstd-lightcn.eot') format('embedded-opentype'),
+         url('universltstd_cn/universltstd-lightcn.woff') format('woff'),
+         url('universltstd_cn/universltstd-lightcn.ttf') format('truetype'),
+         url('universltstd_cn/universltstd-lightcn.svg#UniversLTStd47LightCondensed') format('svg');
+}
+
+@font-face {
+    font-family: 'UniversLTStd57Condensed';
+    src: url('universltstd_cn/universltstd-cn.eot');
+    src: url('universltstd_cn/universltstd-cn.eot') format('embedded-opentype'),
+         url('universltstd_cn/universltstd-cn.woff') format('woff'),
+         url('universltstd_cn/universltstd-cn.ttf') format('truetype'),
+         url('universltstd_cn/universltstd-cn.svg#UniversLTStd57Condensed') format('svg');
+}
+
+@font-face {
+    font-family: 'UniversLTStd67BoldCondensed';
+    src: url('universltstd_cn/universltstd-boldcn.eot');
+    src: url('universltstd_cn/universltstd-boldcn.eot') format('embedded-opentype'),
+         url('universltstd_cn/universltstd-boldcn.woff') format('woff'),
+         url('universltstd_cn/universltstd-boldcn.ttf') format('truetype'),
+         url('universltstd_cn/universltstd-boldcn.svg#UniversLTStd67BoldCondensed') format('svg');
+}
+

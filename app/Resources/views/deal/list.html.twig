@@ -1,0 +1,244 @@
+{% extends loyalty_templates("base.html.twig") %}
+
+{% from 'loyalty/icons.html.twig' import icon %}
+{% from 'loyalty/buttons.html.twig' import link %}
+{% from 'loyalty/buttons.html.twig' import add %}
+{% from 'loyalty/buttons.html.twig' import back %}
+
+{% block content %}
+    <div class="ajax-content">
+        <section class="bg_white">
+                <div class="row">
+                    <div class="col-sm-12 semi_txt s35 m_b20"> {{'label.my_bills_title'|trans }} </div>    
+                    <div class="col-sm-12 semi_txt s20 m_t20 m_b20"><div class="search">{{'label.my_bills_search_text'|trans }}</div></div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12">
+                        {% block filter %}
+
+                            {% embed 'deal/filters/deal_filter.html.twig' with {
+                            form: form_filter,
+                            clear_path: path('deal_list'),
+                            } %}{% endembed %}
+
+                        {% endblock %}
+                    </div>
+                        <div class="col-sm-6 col-xs-12 s16  m_t20 m_b10">
+                            ({{totalCount}} {{'label.my_bills_results_text'|trans }})
+                        </div> 
+                        <div class="col-sm-6 col-xs-12 m_t20  m_b10 file-excel">
+                            <a href="{{path('deal_excel')}}">{{'label.my_bills_dowloand_excel_text'|trans }}</a>
+                        </div>
+                    </div>
+            </section>
+                        <div class="row m_b30">
+                            <div class="col-xs-12">
+                                <div class="table-responsive">
+                                    <table class="table ">
+                                        <thead class="bg_blue-light white_txt s16">
+                                            <tr>
+                                                <th> {{'label.my_bills_list_id'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_company_name'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_partner'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_number_bill'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_units'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_total_bills'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_documents'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_status'|trans }}</th>
+                                                <th>{{ 'label.my_bills_list_actions'|trans }}</th>
+                                              </tr>
+                                        </thead>
+                                        <tbody>
+                                                {% for invoice in invoices %}
+                                                <tr  id="deal_{{invoice.id}}">
+                                                    <th>{{invoice.correlative}}</th>
+                                                    <th>{{invoice.companyName}}</th>
+                                                    <th>{{invoice.companyType}}</th>
+                                                    <th>{{invoice.invoiceNumber}}</th>
+                                                    <th>{{invoice.totalUnits}}</th>
+                                                    <th>${{ invoice.totalQuantity|number_format(0, '.', ',') }}</th>
+                                                    <th>
+                                                        {% if invoice.factura %}
+                                                            <a target="_blank" href="{{ asset('uploads/' ~ invoice.factura) }}">
+                                                                <img src="{{ asset('images/factura.png') }}" title="Factura"/>
+                                                            </a>
+                                                            {% if invoice.certificado %}
+                                                                <a target="_blank" href="{{ asset('uploads/' ~ invoice.certificado) }}">
+                                                                    <img src="{{ asset('images/certificado.png') }}" title="Certificado"/>
+                                                                </a>
+                                                            {% endif %}
+                                                        {% elseif invoice.certificado %}
+                                                            <a target="_blank" href="{{ asset('uploads/' ~ invoice.certificado) }}">
+                                                                <img src="{{ asset('images/certificado.png') }}" alt="Certificado"/>
+                                                            </a>
+                                                        {% else %}
+                                                            {{ 'N/A' }}
+                                                        {% endif %}
+                                                    </th>
+                                                    <th id="status">{{invoice.status|trans}}</th>
+                                                    <th>
+                                                        <div class="select-style">
+                                                            <select id="select_{{invoice.id}}" class="acciones select-style-table form-control" name="acciones">
+                                                                <option>{{'label.my_bills_list_actions_select'|trans }}</option>
+                                                                 <option  data-invoice="{{invoice.id}}" value="Ver">{{'label.my_bills_list_actions_details'|trans }}</option>
+                                                                 {%if invoice.status != 'REJECTED_STATE'%}
+                                                                 <option  data-invoice="{{invoice.id}}" value="Eliminar">{{'label.my_bills_list_actions_remove'|trans }}</option>
+                                                                 {%endif%}
+                                                                {% if  role == 'ROLE_APPROVER' or role=='ROLE_OPTIME_MASTER'%}
+                                                                    {%if  invoice.status != 'APPROVED_STATE' and invoice.status != 'REJECTED_STATE'%}
+                                                                        <option  data-invoice="{{invoice.id}}" value="Rechazar">{{'label.my_bills_list_actions_to_refuse'|trans }}</option>
+                                                                        <option  data-invoice="{{invoice.id}}" value="Aprovar">{{'label.my_bills_list_actions_approve'|trans }}</option>
+                                                                    {%endif%}    
+                                                                {%endif%}
+                                                            </select>
+                                                        </div>
+                                                    </th>
+                                                </tr>
+                                                {% else %}
+                                                    <tr>
+                                                        <th colspan="9">
+                                                            <div class="alert alert-warning text-center">
+                                                                {{'label.my_bills_no_bill_register'|trans }}
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                            {%endfor%}
+                                        </tbody>
+                                        {% if invoices|length > 0 %}
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th class="semi_txt s18"> {{'label.my_bills_total_bills'|trans }}</th>
+                                                <th class="s18">${{ subtotal.SubTotal|number_format(0, '.', ',') }}</th>
+                                            </tr>
+                                        </tfoot>
+                                        {% endif %}
+                                    </table>
+                                </div>
+                                
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="paginator">
+                                    {{ knp_pagination_render(invoices, null) }}
+                                </div>
+                            </div>
+                            <div class="col-sm-6 right">
+                                {{ back(path('homepage'), 'label.my_bills_return_button'|trans ) }}
+                            </div>
+                                            
+                        <div class="modal fade" id="myModal" role="dialog"></div>
+                                            
+                        </div>
+
+
+            
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+
+
+
+        $('body').on('change', '[id ^="select_"]', function (e) {
+            var invoice = $(this).find(':selected').data('invoice');
+            var accion = $(this).val();
+           
+            if (accion == 'Eliminar') {
+                    e.preventDefault();
+                var urlmodal = "{{path('print_modal', {id: 'id', action: 'Eliminar'})}}"
+                var url = "{{path('deal_delete', {id: 'id'})}}"
+                    url = url.replace("id", invoice);
+                urlmodal = urlmodal.replace("id", invoice);   
+                $.ajax({
+                        type: "POST",
+                        url: urlmodal,
+                        success: function (response) {
+                            $('#myModal').html(response);
+                            $('#myModal').modal('show');
+                            $('body').on('click', '[id ="'+invoice+'"]', function (e) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    success: function (response) {
+                                        $('body').html(response);
+                                    }
+                                });
+                           });
+                        }
+                    });
+
+             }
+            else if (accion == 'Aprovar') {
+                var urlmodal = "{{path('print_modal', {id: 'id', action: 'Aprovar'})}}"
+                    urlmodal = urlmodal.replace("id", invoice);   
+                var url = "{{path('deal_approve', {id: 'id'})}}"
+                    url = url.replace("id", invoice);
+                    $.ajax({
+                       type: "POST",
+                       url: urlmodal,
+                       success: function (response) {
+                           $('#myModal').html(response);
+                           $('#myModal').modal('show');
+                            $('body').on('click', '[id ="'+invoice+'"]', function (e) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    success: function (response) {
+                                        $('body').html(response);
+                                    }
+                                });
+                           });
+                        }
+                    });
+            }
+            else if (accion == 'Ver') {
+                var url = "{{path('show_deal', {id: 'id'})}}"
+                url = url.replace("id", invoice);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    success: function (response) {
+                        $('#myModal').html(response);
+                           $('#myModal').modal('show');
+                    }
+                });
+            }
+            else if (accion == 'Rechazar') {
+                var urlmodal = "{{path('print_modal', {id: 'id', action: 'Rechazar'})}}"
+                    urlmodal = urlmodal.replace("id", invoice);   
+                var url = "{{path('deal_rejected', {id: 'id'})}}"
+                    url = url.replace("id", invoice);
+                    $.ajax({
+                        type: "POST",
+                        url: urlmodal,
+                        success: function (response) {
+                            $('#myModal').html(response);
+                            $('#myModal').modal('show');
+                            $('body').on('click', '[id ="'+invoice+'"]', function (e) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: url,
+                                    success: function (response) {
+                                        $('body').html(response);
+                                    }
+                                });
+                           });
+                        }  
+                     });
+            }
+        });
+
+
+
+
+    </script>
+
+{% endblock %}

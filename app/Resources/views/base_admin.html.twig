@@ -1,0 +1,35 @@
+{% set is_ajax = app.request.xmlHttpRequest %}
+{% extends is_ajax ? 'base_ajax.html.twig': 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}"/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% if not is_ajax %}
+        <script src="{{ asset('js/select2.full.min.js') }}"></script>
+        <script src="{{ asset('js/loyalty/admin_users.js') }}"></script>
+        <script src="{{ asset('js/loyalty/admin_users_import.js') }}"></script>
+        <script src="{{ asset('js/loyalty/admin_company_users.js') }}"></script>
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+    {% block content_top %}{% endblock %}
+
+    {{ include(loyalty_templates('flashes.html.twig')) }}
+
+    {% block filter %}{% endblock %}
+    {% block paginator %}{% endblock %}
+    {% block content %}{% endblock %}
+
+    <div class="text-right">
+        {% block page_header_right %}{% endblock %}
+        {% block page_actions %}{% endblock %}
+    </div>
+
+    {% block content_bottom %}{% endblock %}
+
+{% endblock page_content %}

@@ -1,0 +1,106 @@
+{% set page_header = block('page_header') %}
+{% use '_head_assets.html.twig' %}
+{% use 'footer.html.twig' %}
+
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{% block title %}VIP Club{% if page_header is not empty %} - {{ page_header|raw }}{% endif %}{% endblock %}</title>
+
+    {{ block('stylesheets') }}
+    {{ block('javascripts_head') }}
+</head>
+<body {% block body_attr -%}{%- endblock -%}>
+    
+{% block body %}
+
+    {% block header %}
+        <header>
+            <div class="container-fluid">
+                <div class="row m_b30">
+                {% block primary_header %}
+                    <div class="col-xs-12 text-right actions_profile p_t10">
+                        <ul class="list-inline">
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {% if app.request.attributes.get('_route') != 'fos_user_change_password' %}
+                                <li>{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}</li>
+                                <li>|</li>
+                                <li>
+                                    <a href="{{ path('fos_user_security_logout') }}" class="txt_none">
+                                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                        </ul>
+                    </div>
+                {% endblock %}
+
+                    {% block page_header_container %}
+
+                        <div class="col-xs-6 text-left ">
+                            <a class=" grey_txt politics" href="http://www.hp.com" target="_blank">
+                                <img src="{{ asset('images/HPInc_logo.png') }}" alt="HPInc">
+                            </a>
+                        </div>
+                        <div class="col-xs-6 text-right p_t10">
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                {% if app.request.attributes.get('_route') != 'fos_user_change_password' %}
+                                    <a href="{{ path('homepage') }}">
+                                        <img src="{{ asset('images/VIPCLUB_logo.png') }}" alt="VIP CLUB">
+                                    </a>
+                                {% else %}
+                                    <img src="{{ asset('images/VIPCLUB_logo.png') }}" alt="VIP CLUB">
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ path('fos_user_security_login') }}">
+                                    <img src="{{ asset('images/VIPCLUB_logo.png') }}" alt="VIP CLUB">
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endblock %}
+
+            </div>
+            </div>
+        </header>
+
+    {% endblock %}
+
+{% block sub_header %}
+    <section>
+        <div class="container-fluid ">
+            <div class="row">
+                <div class="col-sm-12 m_b5 s35 semi_txt">{{ page_header|raw }}</div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+    {% block main_content %}
+            <div class="container-fluid">
+            {% block page_content %}
+                <div class="pull-right">
+                    {% block page_header_right %}{% endblock %}
+                    {% block page_actions %}{% endblock %}
+                </div>
+
+                {{ include(loyalty_templates('flashes.html.twig')) }}
+
+                {% block content %}
+
+
+                {% endblock %}
+            {% endblock page_content %}
+
+        </div>
+    {% endblock %}
+
+    {{ block('footer') }}
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>

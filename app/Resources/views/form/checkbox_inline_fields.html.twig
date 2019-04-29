@@ -1,0 +1,22 @@
+
+{% block checkbox_widget %}
+    {% spaceless %}
+        <div class="checkbox">
+            <label  for="{{ id }}">
+                <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+                {{ label|trans }}
+            </label>
+        </div>
+    {% endspaceless %}
+{% endblock checkbox_widget %}
+
+{% block radio_widget %}
+    {% spaceless %}
+        <div class="radio">
+            <label class="bold-not padding-right-10" for="{{ id }}" style="font-weight:normal">
+                <input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+                {{ label|trans }}
+            </label>
+        </div>
+    {% endspaceless %}
+{% endblock radio_widget %}

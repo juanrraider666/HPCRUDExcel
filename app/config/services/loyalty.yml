@@ -1,0 +1,61 @@
+services:
+
+    app.soap.deal_client.factory:
+        class: AppBundle\Soap\DealSoapClientFactory
+        arguments:
+            - "@app.loyalty.loyalty_identifier"
+            - "@app.security.encrypter"
+            - "%kernel.debug%"
+        calls:
+            - [setLogger, ["@?logger"]]
+
+    app.loyalty.loyalty_soap_client:
+        lazy: true
+        class: AppBundle\Loyalty\LoyaltySoapClient
+        factory: ["@app.soap.deal_client.factory", createSoapClient]
+        calls:
+            - [setLogger, ["@?logger"]]
+
+    app.loyalty.repository:
+        class: AppBundle\Loyalty\Repository\LoyaltyRepository
+        arguments:
+            - "@app.loyalty.loyalty_soap_client"
+
+    app.loyalty.mailer:
+        class: AppBundle\Loyalty\Mailer\LoyaltyMailer
+        arguments:
+            - "@app.loyalty.loyalty_soap_client"
+
+    app.loyalty.point_assigner:
+        class: AppBundle\Loyalty\PointAssignment\LoyaltyPointAssigner
+        arguments:
+            - "@app.loyalty.loyalty_soap_client"
+        calls:
+            - [setLogger, ["@?logger"]]
+
+    app.loyalty.loyalty_identifier:
+        class: AppBundle\Loyalty\LoyaltyIdentifier
+        arguments:
+            - "@request_stack"
+            - "@app.loyalty_repository"
+
+    simple_sso.remote_connection:
+        class: AppBundle\Loyalty\RemoteConnection
+        autowire: true
+#        arguments: ["@app.loyalty.loyalty_identifier"]
+
+    app.resolver.template.twig: "@app.template_resolver.twig"
+
+    app.template_resolver.twig:
+        class: AppBundle\Loyalty\Theme\TwigTemplateResolver
+        autowire: true
+
+    app.resolver.assets:
+        class: AppBundle\Loyalty\Theme\AssetResolver
+        arguments:
+            - "@app.loyalty.loyalty_identifier"
+            - "theme"
+            - "%assetic.read_from%/theme"
+            - "_default"
+
+

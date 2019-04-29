@@ -1,0 +1,203 @@
+
+<div class="orag_txt m_t20">{{'label.all_fields_required'|trans }}</div>
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register" novalidate="novalidate">
+    {{ form_widget(form._token) }}
+    {#{{ form_errors(form) }}#}
+    <section class="contact-info bg_white">
+            <hr class="m_b30">
+            <div class="row">
+                <div class="col-sm-12 semi_txt s16 p_b20">{{ 'label.information_contact'|trans }}</div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.email) }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.jobTitle) }}
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.plainPassword) }}
+                    </div>
+                    <p class="help-block">{{ 'label.password_pattern_instructions'|trans }}</p>
+                </div>
+
+                {% for phone in form.phones %}
+                    <div class="col-xs-12 col-sm-6 col-md-6 ">
+                        <label></label>
+                        <div class="form-group">
+                            {{ form_row(phone) }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+    </section>
+
+    <section>
+        <div id="registration-select-company-container">
+            <hr class="m_b30">
+            <div class=" semi_txt s16 p_b20">{{ 'label.information_company'|trans() }}</div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        {{ form_label(form.dealCompanyType) }}
+                        <div class="select-style">
+                            {{ form_widget(form.dealCompanyType, {attr: {class:'select-style-table'}}) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="form-group has-error">
+                        {{ form_label(form.dealCompany) }}
+                        <div class="select-style">
+                            {{ form_widget(form.dealCompany, {attr: {class:'select-style-table deal_company_selector'}}) }}
+                        </div>
+                        {{ form_errors(form.dealCompany) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="">
+            {{ form_row(form.newCompany) }}
+        </div>
+    </section>
+    <hr class="m_b30">
+    <section class="contact-info bg_white p_t20 p_b40 hide" id="registration-new-company-container">
+
+        <div class=" semi_txt s16 p_b20">{{ 'label.information_company'|trans() }}</div>
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.newDealCompany.name) }}
+                    </div>
+                </div>
+                <!--div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {#{{ form_row(form.newDealCompany.zipCode) }}#}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {#{{ form_row(form.newDealCompany.website) }}#}
+                    </div>
+                </div-->
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group has-error">
+                        {{ form_label(form.newDealCompany.company_type) }}
+                        <div class="select-style">
+                            {{ form_widget(form.newDealCompany.company_type, {attr: {class:'select-style-table'}}) }}
+                        </div>
+                        {{ form_errors(form.newDealCompany.company_type) }}
+                    </div>
+                </div>
+                <!--div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {#{{ form_label(form.newDealCompany.country) }}#}
+                        <div class="select-style">
+                            {#{{ form_widget(form.newDealCompany.country, {attr: {class:'select-style-table'}}) }}#}
+                        </div>
+                        {#{{ form_errors(form.newDealCompany.country) }}#}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {#{{ form_label(form.newDealCompany.state) }}#}
+                        <div class="select-style">
+                            {#{{ form_widget(form.newDealCompany.state, {attr: {class:'select-style-table state_selector'}}) }}#}
+                        </div>
+                        {#{{ form_errors(form.newDealCompany.state) }}#}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {#{{ form_label(form.newDealCompany.city) }}#}
+                        <div class="select-style">
+                            {#{{ form_widget(form.newDealCompany.city, {attr: {class:'select-style-table city_selector'}}) }}#}
+                        </div>
+                        {#{{ form_errors(form.newDealCompany.city) }}#}
+                    </div>
+                </div-->
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group has-error">
+                        {{ form_label(form.newDealCompany.city) }}
+                        <div class="select-style">
+                            {{ form_widget(form.newDealCompany.city, {attr: {class:'select-style-table'}}) }}
+                        </div>
+                        {{ form_errors(form.newDealCompany.city) }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 ">
+                    <div class="form-group">
+                        {{ form_row(form.newDealCompany.address) }}
+                    </div>
+                </div>
+
+            </div>
+    </section>
+    <div class="col-xs-12 col-sm-6 col-md-12">
+        {{ form_rest(form) }}
+        <div class="text-right">
+            <input type="submit" class="bg_orange" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+        </div>
+    </div>
+
+</form>
+{% block javascripts %}
+    <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script type="text/javascript">
+        $(".deal_company_selector").select2({
+            theme: "bootstrap",
+            width: '100%',
+            placeholder: "{{'label.select_company'|trans }}",
+            language: {
+                 noResults: function (params) {
+                    return null;
+            }}
+        });
+    </script>
+{% endblock %}
+{#    {{ form_widget(form._token) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    {{ form_row(form.jobTitle) }}#}
+{#    <div id="registration-select-company-container">
+        {{ form_row(form.dealCompanyType) }}
+        {{ form_row(form.dealCompany) }}
+    </div>
+
+    {{ form_row(form.newCompany) }}
+    <div id="registration-new-company-container" class="hide">
+        {{ form_row(form.newDealCompany.name) }}
+        {{ form_row(form.newDealCompany.zipCode) }}
+        {{ form_row(form.newDealCompany.website) }}
+        {{ form_row(form.newDealCompany.company_type) }}
+        {{ form_row(form.newDealCompany.country) }}
+        {{ form_row(form.newDealCompany.state) }}
+        {{ form_row(form.newDealCompany.city) }}
+        {{ form_row(form.newDealCompany.address) }}
+    </div>
+    {{ form_rest(form) }}
+    <div>
+        <input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+    </div>#}
+

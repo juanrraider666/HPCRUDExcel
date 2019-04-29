@@ -1,0 +1,15 @@
+{% macro show_form_attributes(form, regions) %}
+    {% if app.debug %}<!-- R({{ regions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}) -->{% endif %}
+    {% for child in form_attributes(form, regions) %}
+        {{ form_row(child) }}
+    {% endfor %}
+    {% if app.debug %}<!-- END-R({{ regions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}) -->{% endif %}
+{% endmacro %}
+
+{% macro show_form_attributes_col_sm_6(form, regions) %}
+    {% if app.debug %}<!-- R({{ regions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}) -->{% endif %}
+    {% for child in form_attributes(form, regions) %}
+        <div class="col-sm-6">{{ form_row(child) }}</div>
+    {% endfor %}
+    {% if app.debug %}<!-- END-R({{ regions|json_encode(constant('JSON_PRETTY_PRINT'))|raw }}) -->{% endif %}
+{% endmacro %}

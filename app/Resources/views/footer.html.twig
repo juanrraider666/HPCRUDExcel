@@ -1,0 +1,31 @@
+{% block footer %}
+    <footer>
+        <div class="bg_gray s11">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6">
+                        <ul class="list-inline p_t20">
+                            <li>{{'label.footer_text_1'|trans }}</li>
+                            <li> <img class="m_l10" src="{{ asset('images/intel_dark.png') }}" alt="intel"></li>
+                            <li><img class="m_l10" src="{{ asset('images/amd_dark.png') }}" alt="intel"></li>
+                            <li><img class="m_l10" src="{{asset('images/windowspro_dark.png') }}" alt="intel"></li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 text-sm-left p_t20">
+                        <div class="m_b15 ">
+                            <a class=" grey_txt politics" href="http://www8.hp.com/co/es/privacy/terms-of-use.html" target="_blank">{{'label.footer_text_2'|trans }}</a>
+                            {{ ' | ' }}
+                            <a class=" grey_txt politics" href="mailto:info@hpivipclub.com" target="_top">{{'label.footer_text_3'|trans }}</a>
+                        </div>
+                        <div class="m_b15">© {{ "now"|date('Y') }} {{'label.footer_hp'|trans }}</div>
+                        <div class="m_b15">
+                            <a href="http://www.optimeconsulting.com" target="_blank">
+                                <img src="{{ asset('images/powered_optime.png') }}" alt="Optime Consulting">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}

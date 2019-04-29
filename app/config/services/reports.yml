@@ -1,0 +1,14 @@
+services:
+    app.excel_export:
+        class: AppBundle\Report\ExcelExport
+        arguments: [%export_file_properties%]
+
+    app.excel_export_reloaded:
+        class: AppBundle\Report\ExcelReportReloaded
+        arguments: [%title_app_name%]
+
+    app.excel_export_with_sources:
+        class: AppBundle\Report\ExcelExportWithSources
+        arguments: [%export_file_properties%]
+
+    

@@ -1,0 +1,20 @@
+{% from 'loyalty/buttons.html.twig' import linkNo, btnYes %}
+
+<div class="container">
+    <div class="margin-top-35">
+        <form method="post" action="{{ path('change_deal_status', {id: deal.id, status: status}) }}">
+            <div class="col-md-6 margin-left-15">
+                <div class="row">
+                    <div class="well">
+                        ¿Desea confirmar esta Acción?
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="pull-right margin-bottom-25">
+                        {{ btnYes() }} {{ linkNo(path('deal_list')) }}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

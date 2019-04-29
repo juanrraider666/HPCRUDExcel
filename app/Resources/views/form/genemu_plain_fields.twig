@@ -1,0 +1,5 @@
+{% block genemu_plain_widget %}
+    <div  {{ block('container_attributes') }}>
+        <p class="form-control-static"  {{ block('widget_attributes') }}>{{ value|escape }}</p>
+    </div>
+{% endblock %}

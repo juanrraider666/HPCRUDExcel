@@ -1,0 +1,66 @@
+{#
+
+EJEMPLO DE USO:
+
+{% embed '@App/bs3/modal.html.twig' with { id: 'mi_modal' } %}
+
+    {% block header %}
+        Título
+    {% endblock %}
+
+    {% block body %}
+        Contenido
+    {% endblock %}
+
+    {% block footer %}
+        <a class="btn btn-success" href="#">Enviar</a>
+    {% endblock %}
+
+{% endembed %}
+
+{% embed '@App/bs3/modal.html.twig' with { id: 'mi_modal' } %}
+
+    {% block header %}
+        Título
+    {% endblock %}
+
+    {% block body %}
+        Contenido
+    {% endblock %}
+
+    {% block footer %}
+        <a class="btn btn-success" href="#">Enviar</a>
+    {% endblock %}
+
+{% endembed %}
+
+#}
+{% set _header = block('header') %}
+{% set _body = block('body') %}
+{% set _footer = block('footer') %}
+{% set show_close = show_close|default(false) %}
+<div class="modal fade" {% if id is defined %}id="{{ id }}"{% endif %}>
+    <div class="modal-dialog {{ size is defined ? 'modal-'~size : '' }}">
+        <div class="modal-content" style="border-radius: 0">
+            {% if _header is not empty %}
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ _header|raw }}</h4>
+                </div>
+            {% endif %}
+            {% block content %}
+                {% if _body is not empty %}
+                    <div class="modal-body">{{ _body|raw }}</div>{% endif %}
+                {% if _footer is not empty or show_close %}
+                    <div class="modal-footer">
+                        <div class="btn-group-sm">
+                            {{ _footer|default|raw }}
+                            {% if show_close %}
+                                <a href="#" class="btn btn-default btn-sm" data-dismiss="modal" aria-hidden="true">{{ 'btn.close'|trans }}</a>{% endif %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endblock content %}
+        </div>
+    </div>
+</div>

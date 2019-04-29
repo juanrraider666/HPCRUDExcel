@@ -1,0 +1,26 @@
+{% set container_suffix = container_suffix|default(id|default) %}
+{% javascripts '@FOSCommentBundle/Resources/assets/js/comments.js' output="compiled/js/comments.js" %}
+<script type="text/javascript">
+    // thread id
+    {% if id is defined and id is not empty -%}
+    var fos_comment_thread_id = '{{ id }}';
+    {% endif -%}
+    {% if container_suffix is not empty -%}
+    var fos_comment_thread_container = $('#fos_comment_thread_{{ container_suffix }}');
+    {% endif -%}
+    // api base url to use for initial requests
+    var fos_comment_thread_api_base_url = '{{ path('fos_comment_get_threads') }}';
+
+//    var fos_comment_thread_comment_count_callback()
+
+    // Snippet for asynchronously loading the comments
+    (function () {
+        var fos_comment_script = document.createElement('script');
+        fos_comment_script.async = true;
+        fos_comment_script.src = '{{ asset_url }}';
+        fos_comment_script.type = 'text/javascript';
+
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fos_comment_script);
+    })();
+</script>
+{% endjavascripts %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block page_header %}{{ 'title.authentication_error'|trans }}{% endblock %}
+{% block title_content %}{{ 'title.page_not_found'|trans }}{% endblock %}
+
+{#{% from 'loyalty/icons.html.twig' import icon_error_page %}#}
+{#{% from 'loyalty/buttons.html.twig' import primaryLink %}#}
+
+{% block content %}
+    <div class="row">
+        {#<div class="col-sm-4 text-center">#}
+            {#{{- icon_error_page('text-danger') -}}#}
+        {#</div>#}
+        {#<div class="col-sm-8 text-justified">#}
+            <h3>{{- 'label.authentication_error.message'|trans -}}</h3>
+            {#<div class="margin-top-35">#}
+                {#{{- primaryLink(path('deal_list'), 'label.back_to_homepage'|trans) -}}#}
+            {#</div>#}
+        {#</div>#}
+    </div>
+{% endblock %}

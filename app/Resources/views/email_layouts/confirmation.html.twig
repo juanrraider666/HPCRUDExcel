@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
+
+<title>.:: HP VIP Club ::.</title>
+
+
+<style type="text/css">
+/*some resets and issue fixes */
+
+#outlook a { padding: 0; }
+
+body { width: 100% !important; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; margin: 0; padding: 0; }
+
+.ReadMsBody { width: 100%; }
+
+.ExternalClass { width: 100%; }
+
+.backgroundTable { margin: 0 auto; padding: 0; width: 100% !important; }
+
+table td { border-collapse: collapse; }
+
+.ExternalClass * { line-height: 115%; }
+
+/* End reset */
+
+@media screen and (max-width: 630px) {
+
+/* Display block allows us to stack elements*/
+*[class="mobile-column"] { display: block; }
+
+/* Some more stacking elements */
+*[class="mob-column"] { float: none !important; width: 100% !important; }
+
+/* Hide stuff*/
+*[class="hide"] { display: none !important; }
+
+/* This is our force to 100% width, this set elements to 100% width and fixes the height isssues too */
+*[class="100p"] { width: 100% !important; height: auto !important; }
+
+/* when columns stack but need space underneath, for the 2x2 stack*/
+*[class="condensed"] { padding-bottom: 40px !important; display: block; }
+
+/* centers content on mobile */
+*[class="center"] { text-align: center !important; width: 100% !important; height: auto !important; }
+
+/* width 100 percentt width with 20px padding*/
+*[class="100pad"] { width: 100% !important; padding: 20px; }
+
+  *[class="colsplit"]{ width:100% !important; float:left !important; display:block !important; }
+  *[class="colsplit2"]{ width:100% !important; float:left !important; display:block !important; padding-top:20px !important; }
+/* These are our tablet/medium screen media queries */
+
+}
+</style>
+
+
+</head>
+
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" id="hide_in_browser">
+<tr>
+<td height="20" align="center" valign="top" style="font-family:arial; font-size:12px; color:#000000">Please <a href="{{ url('show_email', {token: unique_token}) }}" target="_blank"><font color="#CC0200;">click here</font></a> if you can not view this e-mail
+</td>
+</tr>
+</table>
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="100p">
+<tr>
+<td>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="100p">
+<tr>
+<td width="20%" align="center" class="colsplit" style="padding: 10px 0px;"><img src="" width="121" height="55" style="display:block; border-style:none;" border="0"/></td>
+<td width="30%" class="hide">&nbsp;</td>
+<td width="50%" align="center" class="colsplit" style="padding: 10px 0px;"><img src="" width="302" height="55" style="display:block; border-style:none;" border="0"/></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td align="left" valign="top"></td>
+</tr>
+<tr>
+<td bgcolor="#f8f8f8" style="padding:30px; font-family:arial;font-size:16px;color:#333333; border-top:#525252 thin solid;">
+
+{{ include(template_from_string(content), variables, false, true) }}
+
+</td>
+</tr>
+  <tr>
+        <td><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" class="100p">
+          <tbody>
+            <tr>
+              <td width="35%" height="40" align="center" bgcolor="#525252" class="colsplit2"><a href="#" target="_blank" style="font-family:arial; font-size:14px; color:#ffffff; text-decoration:none;">www.adobepcclub.com</a></td>
+              <td width="21%" height="40" bgcolor="#525252" class="hide">&nbsp;</td>
+              <td width="44%" height="40" align="center" bgcolor="#525252" class="colsplit"><a href="#" style="font-family:arial; font-size:14px; color:#ffffff; text-decoration:none;"><img src=""  alt="APC CLUB" width="33" height="15"/> ???</a></td>
+            </tr>
+          </tbody>
+        </table></td>
+  </tr>
+        <tr>
+        <td align="center" style="padding: 20px 30px; font-family:arial;font-size:10px;color:#333333;">
+HP VIP Culb<br>
+<a href="#" target="_blank">???</a><br>
+To receive no further emails, please 
+<a href="http://jngo.net/u.z?***uniqueid****" target="_blank">click here</a> 
+or reply to this email with "unlist" in the Subject line.
+</td>
+  </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends '@FOSComment/Thread/comment_content.html.twig' %}
+
+{# Nombre del author que creó el mensaje #}
+{% block fos_comment_comment_metas_authorline %}
+    {#{% trans from 'FOSCommentBundle' %}fos_comment_comment_show_by{% endtrans %}#}
+    {#<span class="fos_comment_comment_authorname">#}
+    {#{% if comment is fos_comment_in_state(constant('FOS\\CommentBundle\\Model\\CommentInterface::STATE_DELETED')) %}#}
+    {#{% trans from 'FOSCommentBundle' %}fos_comment_comment_deleted{% endtrans %}#}
+    {#{% else %}#}
+    {#{{ comment.author.name }}#}
+    {#{% endif %}#}
+    {#</span> - {{ comment.createdAt|date }}#}
+{% endblock fos_comment_comment_metas_authorline %}
+
+{# boton para responder un comentario #}
+{% block fos_comment_comment_reply %}
+    {% from 'loyalty/icons.html.twig' import icon %}
+    <a href="javascript:void(0);" data-url="{{ url('fos_comment_new_thread_comments', {"id": comment.thread.id}) }}"
+            data-name="{{ comment.author.name }}" data-parent-id="{{ comment.id }}"
+            class="fos_comment_comment_reply_show_form">{{ icon('share') }}
+        {% trans from 'FOSCommentBundle' %}
+        fos_comment_comment_show_reply{% endtrans %}</a>
+{% endblock fos_comment_comment_reply %}
+
+{% block fos_comment_comment %}
+    <div id="fos_comment_{{ comment.id }}" data-comment-thread-id="{{ thread.id }}"
+         class="fos_comment_comment_show fos_comment_comment_depth_{{ depth }} ly-comment-item"
+         {% if parent is defined and parent is not null %}data-parent="{{ parent.id }}"{% endif %}>
+        <div id="fos_comment_comment_body_{{ comment.id }}" class="fos_comment_comment_body">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ comment.author.name }} <cite style="margin-left: 10px">{{ comment.createdAt|date }}</cite>
+                </div>
+                <div class="panel-body">
+                    {{ block('fos_comment_comment_body') }}
+                </div>
+                {#<div class="panel-footer">{{ _footer|raw }}</div>#}
+            </div>
+        </div>
+        {{ block('fos_comment_comment_children') }}
+        <div class="fos_comment_comment_metas">
+            {{ block('fos_comment_comment_metas') }}
+        </div>
+    </div>
+{% endblock fos_comment_comment %}

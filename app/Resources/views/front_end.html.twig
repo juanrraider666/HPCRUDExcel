@@ -1,0 +1,2 @@
+{% set is_ajax = app.request.xmlHttpRequest %}
+{% extends is_ajax ? 'base_ajax.html.twig': 'base.html.twig' %}

@@ -1,0 +1,383 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+imports:
+    - { resource: services/soap.yml }
+    - { resource: services/security.yml }
+    - { resource: services/loyalty.yml }
+    - { resource: services/reports.yml }
+    - { resource: services/register.yml }
+
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    app.form.type.deal_company_type:
+        class: AppBundle\Form\Type\DealCompanyType
+        arguments: ["@app.add_country_field_subscriber"]
+        tags:
+            - { name: form.type, alias: deal_company_type }
+
+    app.form.type.deal_company_custom_type:
+        class: AppBundle\Form\Type\DealCompanyCustomType
+        tags:
+            - { name: form.type, alias: deal_company_custom_type }
+    
+    app.form.type.deal_invoice_type:
+        class: AppBundle\Form\Type\DealInvoiceType
+        arguments: ["@translator.default","@app.add_country_field_subscriber"]
+        tags:
+            - { name: form.type, alias: deal_invoice_type }
+
+    app.form.type.yaml:
+        class: AppBundle\Form\Type\YamlType
+        tags:
+            - { name: form.type, alias: yaml }
+
+    gedmo.listener.timestampable:
+        class: Gedmo\Timestampable\TimestampableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    app.deals_detail_excel:
+        class: AppBundle\Util\DealsDetailExcel
+        autowire: true
+        arguments:
+            - "@app.attributes_manager"
+            - "@attribute.resolver.attribute_region"
+            - ""
+            - ""
+
+#    app.deal_status.listener:
+#        class: AppBundle\Doctrine\EventListener\DealStatusListener
+#        arguments: ["@security.token_storage"]
+#        tags:
+#            - { name: doctrine.event_listener, event: preUpdate, method: preUpdate }
+#            - { name: doctrine.event_listener, event: postUpdate, method: postUpdate }
+
+    app.form.type.loyalty_filter:
+        class: AppBundle\Form\Type\LoyaltyFilterType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: loyalty_filter }
+
+    app.attributes_manager:
+        class: AppBundle\Util\AttributesManager
+        arguments: ["@doctrine.orm.entity_manager"]
+#
+#    app.twig_extension.layout_extension:
+#        class: AppBundle\Twig\Extension\LayoutExtension
+#        arguments: ["@app.loyalty.loyalty_identifier"]
+#        tags:
+#            - { name: twig.extension }
+
+    app.twig_extension.loyalty_extension:
+        class: AppBundle\Twig\Extension\LoyaltyExtension
+        autowire: true
+        tags:
+            - { name: twig.extension }
+
+    app.doctrine.listener.author_comment_assigner:
+        class: AppBundle\Doctrine\EventListener\AuthorCommentAssignerListener
+        arguments: ["@app.factory.author_comment", "@security.token_storage"]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+
+    app.factory.author_comment:
+        class: AppBundle\Factory\DoctrineAuthorFactory
+        autowire: true
+
+    app.repository.deal_thread:
+        class: AppBundle\Doctrine\Repository\DealThreadRepository
+        autowire: true
+        arguments: ["@app.doctrine.repository.deal_thread"]
+
+    app.doctrine.repository.deal_thread:
+        class: AppBundle\Entity\Repository\DealThreadRepository
+        arguments: ['AppBundle\Entity\DealThread']
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+
+    app.factory.deal_thread:
+        class: AppBundle\Factory\DealThreadFactory
+        autowire: true
+
+    app.deal.point_assignment_subscriber:
+        class: AppBundle\Deal\EventSubscriber\PointAssignmentSubscriber
+        arguments:
+            - "@app.loyalty.point_assigner"
+            - "@doctrine.orm.entity_manager"
+            - "@app.deal.attributes_extractor"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.deal.event_manager:
+        class: AppBundle\Deal\DealEventManager
+        arguments: ["@event_dispatcher", "@request_stack",@doctrine.orm.entity_manager]
+
+    app.deal.email_notificator_subscriber:
+        class: AppBundle\Deal\EventSubscriber\EmailNotificatorSubscriber
+        autowire: true
+        calls:
+            - [setLogger, ["@?logger"]]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.email_template.repository:
+        class: AppBundle\Entity\Repository\EmailTemplateRepository
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+        arguments: ["AppBundle:EmailTemplate"]
+
+    app.deal.expired:
+        class: AppBundle\Deal\Actions\DealExpired
+        arguments: ["@doctrine.orm.entity_manager"]
+    
+    app.deal.deleted:
+        class: AppBundle\Deal\Actions\Delete\DealDeleted
+        arguments: ["@doctrine.orm.entity_manager"]    
+    
+    app.deal.rejected:
+        class: AppBundle\Deal\Actions\Rejected\DealRejected
+        arguments: ["@doctrine.orm.entity_manager"]       
+    
+    app.deal.approve:
+        class: AppBundle\Deal\Actions\Approver\DealApprove
+        arguments: ["@doctrine.orm.entity_manager"]    
+
+    app.deal.close_to_expire:
+        class: AppBundle\Deal\DealExpired\DealCloseToExpire
+        arguments: ["@service_container"]
+
+    app.deal.expired_notificator_subscriber:
+        class: AppBundle\Deal\EventSubscriber\DealCloseToExpireNotifierSubscriber
+        arguments:
+            - "@app.mailer.deal_close_to_expire_notifier"
+            - "@doctrine.orm.entity_manager"
+        calls:
+            - [setLogger, ["@?logger"]]
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.mailer.deal_close_to_expire_notifier:
+        class: AppBundle\Loyalty\Mailer\DealCloseToExpireNotifier
+        arguments:
+            - "@app.soap.deal_client.factory"
+            - "@app.deal_variables_extractor"
+            - "@doctrine.orm.entity_manager"
+
+    app.deal_variables_extractor:
+        class: AppBundle\Loyalty\Mailer\Util\DealVariablesExtractor
+        autowire: true
+
+    app.loyalty_repository:
+        class: AppBundle\Entity\Repository\LoyaltyRepository
+        arguments: ['AppBundle:Loyalty']
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+
+    app.repository.loyalty: "@app.loyalty_repository"
+
+    app.twig.extension.string:
+        class: Twig_Extension_StringLoader
+        tags:
+            - { name: "twig.extension" }
+
+#    app.listener.set_loyalty_param_to_router:
+#        class: AppBundle\EventListener\SetLoyaltyParamToRouterListener
+#        autowire: true
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request }
+
+    app.listener.deal.approver_assigner:
+        class: AppBundle\Deal\EventSubscriber\AssignApproverListener
+        autowire: true
+        arguments:
+            - ""
+            - ""
+            - "@security.token_storage"
+            - "@?logger"
+        tags:
+            - { name: kernel.event_listener, event: deal.approved, method: onDealApproved, priority: 8 }
+            - { name: kernel.event_listener, event: deal.rejected, method: onDealRejected, priority: 8 }
+            - { name: kernel.event_listener, event: deal.submission, method: onDealRegistered, priority: 8 }
+
+    app.repository.deal_approver:
+        class: AppBundle\Entity\Repository\DealApproverRepository
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+        arguments: ["AppBundle:DealApprover"]
+        public: false
+
+    app.notifier.approver:
+        class: AppBundle\Loyalty\Mailer\ApproverNotifier
+        autowire: true
+        public: false
+
+    app.resolver.approver: "@app.resolver.simple_approver"
+
+    app.resolver.simple_approver:
+        class: AppBundle\Deal\Approver\Resolver\SimpleApproverResolver
+        autowire: true
+        public: false
+
+    app.mailer.template_config_resolver:
+        class: AppBundle\Loyalty\Mailer\TemplateConfigResolver
+        autowire: true
+        public: false
+
+    monolog_processor:
+        class: Monolog\Processor\PsrLogMessageProcessor
+        tags:
+            - { name: monolog.processor }
+
+    app.deal.attributes_extractor:
+        class: AppBundle\Deal\Util\DealAttributesExtractor
+        
+    app.deal.excel.report:
+        class: AppBundle\Deal\Util\GenerateExcelReport
+
+    app.add_country_field_subscriber:
+        class: AppBundle\Form\Listener\AddCountryFieldSubscriber
+        arguments: ["@app.loyalty.loyalty_identifier"]
+
+    app.listener.login_listener:
+            class: 'AppBundle\EventListener\Login\LoginListener'
+            arguments: ['@security.context', '@router', '@event_dispatcher']
+            tags:
+                - { name: 'kernel.event_listener', event: 'security.interactive_login', method: onSecurityInteractiveLogin }
+
+    #    app.before_request_listener:
+#        class: AppBundle\EventListener\EnableLoyaltyFilterListener
+#        arguments:
+#            - "@doctrine.orm.entity_manager"
+#            - "@app.loyalty.loyalty_identifier"
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#        calls:
+#            - [setLogger, ["@?logger"]]
+
+    app.repository.deal:
+        class: AppBundle\Entity\Repository\DealRepository
+        arguments: [AppBundle:Deal]
+        factory: ["@doctrine.orm.default_entity_manager", "getRepository"]
+
+    app.deal_status_updater_won:
+        class: AppBundle\Service\StatusChange\StatusWonUpdater
+        autowire: true
+        arguments:
+            - "@doctrine.orm.entity_manager"
+
+    app.deal_support_uploader:
+        class: AppBundle\Service\DealSupportUploader
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "%kernel.root_dir%/../web"
+
+    app.form.handler.change_status_to_won:
+        class: AppBundle\Form\Handler\DealChangeStatusToWonHandler
+        autowire: true
+
+    app.repository.deal_status_log:
+        class: AppBundle\Entity\Repository\DealStatusLogRepository
+        arguments: [AppBundle:DealStatusLog]
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+
+    app.repository.comment.author:
+        class: AppBundle\Doctrine\Repository\AuthorRepository
+        arguments: ["@doctrine.orm.entity_manager"]
+        public: false
+
+    app.listener.comment.send_mail:
+        class: AppBundle\Comment\EventListener\SendMailListener
+        autowire: true
+        tags:
+            - { name: kernel.event_listener, event: fos_comment.comment.post_persist ,method: onCreatedComment }
+
+    app.repository.deal.comment:
+        class: AppBundle\Entity\Repository\DealCommentRepository
+        arguments: ['AppBundle:DealComment']
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+        public: false
+
+    app.listener.deal.set_status_point_relation:
+        class: AppBundle\Deal\EventSubscriber\DealStatusLogPointRelationSubscriber
+        autowire: true
+        tags:
+            - { name: "kernel.event_subscriber" }
+
+    app.locale_listener:
+        class: AppBundle\EventListener\LocaleListener
+        arguments: ['%kernel.default_locale%']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.form.registration:
+        class: AppBundle\Form\Type\RegistrationFormType
+        tags:
+            - { name: form.type }
+
+    app.user_manager:
+        class: AppBundle\Service\FOSUser\UserManager
+        arguments: ['@security.encoder_factory','@fos_user.util.username_canonicalizer','@fos_user.util.email_canonicalizer','@doctrine.orm.entity_manager','AppBundle\Entity\User']
+
+    app.company_manager:
+        class: AppBundle\Service\FOSUser\CompanyManager
+        arguments: ['@doctrine.orm.entity_manager','AppBundle\Entity\DealCompany']
+
+    app.form.handler.registration:
+        class: AppBundle\Service\FOSUser\RegistrationFormHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer", "@fos_user.util.token_generator","@app.company_manager"]
+        scope: request
+        public: false
+    
+    app.registration_mailer:
+        class: AppBundle\Mailer\RegistrationMailer
+        arguments:
+            - @app.mailer
+            - %app.email.templates.deal_delete%
+            - %app.email.templates.deal_approve%
+            - %app.email.templates.deal_rejected%
+        calls:
+            - [setLogger, [@?logger]]
+
+    
+    
+    app.mailer:
+        class: AppBundle\Mailer\Mailer
+        arguments:
+            - "@mailer"
+            - "@app.email_template_renderer"
+            - "%app.email.from_email%"
+            - "%app.email.from_name%"            
+            - "@event_dispatcher"
+            - "@?logger"
+    
+    app.email_template_renderer:
+        class: AppBundle\Email\EmailTemplateRenderer
+        arguments:
+            - @twig
+            - @=service("doctrine.orm.entity_manager").getRepository("AppBundle:EmailTemplate")
+            - @security.csrf.token_generator
+            - @translator
+            - email_layouts        
+
+    app.mailer.listener.create_email_on_send_listener:
+        class: AppBundle\EventListener\Mailer\CreateEmailOnSendListener
+        arguments: [@doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: mailer.post_send, method: onPostSend }
+
+    #app.fos_user_mailer:
+    #    class: AppBundle\Mailer\FOSUserMailer
+    #    arguments:
+    #        - @app.mailer
+    #        - %app.email.templates.registration_confirm%
+    #        - %app.email.templates.password_resetting%
+    #        - %app.registration.generic_password%
+
+    app.user_repository:
+        class: AppBundle\Entity\Repository\UserRepository
+        arguments: [AppBundle\Entity\User]
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]

@@ -1,0 +1,29 @@
+{% extends loyalty_templates("base.html.twig") %}
+
+{% from 'loyalty/buttons.html.twig' import link %}
+{% from 'loyalty/icons.html.twig' import icon_list %}
+
+{% block body_attr -%}class="bg-banner-2"{%- endblock -%}
+{% block sub_header %}{% endblock %}
+{% block content %}
+        <div class="row">
+            <div class="col-sm-9 padding-cont-thank">
+                <div class="semi_txt s35 m_t20">{{'label.gratitude_text_1'|trans }}</div>
+                <div class="semi_txt s24 m_t30">{{'label.gratitude_text_2'|trans }} <span class="id_seller">{{correlative}}</span></div>
+            </div>
+            <div class="col-sm-8 m_b30 m_t40 s16">
+                <span class="text-banner ">
+                   {{'label.gratitude_text_3'|trans }}
+                </span>
+            </div>
+            <div class="col-sm-6 m_b20">
+                {{ link(path('create_deal'), 'label.gratitude_register_bill_button'|trans, 'button-orange ', icon_list()) }}
+                {{ link(path('deal_list'), 'label.gratitude_my_bills_button'|trans, 'button-gray_light ', icon_list()) }}
+            </div>
+            <div class="col-sm-8 m_b30 m_t5 s13">
+                <span class="semi_txt">
+                    {{'label.gratitude_text_4'|trans }} <br>{{'label.gratitude_text_5'|trans }}
+                </span>
+            </div>
+        </div>
+{% endblock %}

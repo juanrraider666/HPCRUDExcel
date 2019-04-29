@@ -1,0 +1,18 @@
+{% extends loyalty_templates("base.html.twig") %}
+{% use 'deal/_form.html.twig' %}
+
+
+{% block page_header_container %}
+    <span class="title-top">Actualizar Oportunidad</span>
+    <div class="clearfix"></div>
+{% endblock %}
+
+{% block content %}
+    {{ block('form_content') }}
+{% endblock %}
+
+{% block form_content_subtitle %}{% endblock %}
+
+{% block javascripts %}
+    {{ block('form_javascripts') }}
+{% endblock %}

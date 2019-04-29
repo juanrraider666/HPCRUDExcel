@@ -1,0 +1,27 @@
+{% from 'loyalty/buttons.html.twig' import btnYes %}
+
+<div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{'label.my_bills_list_actions_remove_view_title'|trans }}</h4>
+      </div>
+      <div class="modal-body">
+       {%if(action=='Eliminar')%}
+          <p>{{'label.my_bills_list_actions_remove_view_text'|trans }}</p>
+       {%elseif(action=='Aprovar')%} 
+          <p>{{'label.my_bills_list_actions_approve_view_text'|trans }}</p>
+       {%elseif(action=='Rechazar')%} 
+          <p>{{'label.my_bills_list_actions_to_refuse_view_text'|trans }}</p> 
+        {%endif%}
+      </div>
+      <div class="modal-footer">
+         <div class="form-actions margin-top-15 overflow">
+             <button type="button" class="btn btn-yes" id="{{deal.id}}">{{'label.my_bills_list_actions_confirm_yes'|trans }}</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">{{'label.my_bills_list_actions_confirm_no'|trans }}</button>
+        </div>
+      </div>
+    </div>
+
+  </div>

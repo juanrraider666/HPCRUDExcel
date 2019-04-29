@@ -1,0 +1,88 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('js/bxslider/jquery.bxslider.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+{% endblock stylesheets %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="slider_banners_blue">
+        <ul class="bxslider slide_hpv">
+            {% if closure_promo == true %}
+                {{ include('Landing/info_banner_closure_promo.html.twig') }}
+            {% else %}
+                {{ include('Landing/info_banner_promo.html.twig') }}
+            {% endif %}
+        </ul>
+        <div class="controls">
+            <div class="slider-next"></div>
+            <div class="slider-prev"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 m_b10 text-center s28 m_t20 semi_txt">{{'label.landing_page_tips_vip'|trans }}</div>
+        <div class="p_10 m_b50 overflow">
+            <div class="col-sm-4 col-xs-12 m_t20 hotspot"><img class="img-responsive" src="{{ asset('images/box1.jpg') }}" alt="">
+                <div class="hotspot-info">
+                    <div class="title-info">{{'label.landing_page_sell_register'|trans }}</div>
+                    <div class="detail-info ">{{'label.landing_page_identify_products'|trans }}</div>
+                    <div class="hotspot-content">
+                        <ul class="s14 p_t10">
+                            <li>{{'label.landing_page_identify_products_text_1'|trans }}</li>
+                            <li>{{'label.landing_page_identify_products_text_2'|trans }}</li>
+                            <li>{{'label.landing_page_identify_products_text_3'|trans }}</li>
+                            <li>{{'label.landing_page_identify_products_text_4'|trans }}</li>
+                            <li>{{'label.landing_page_identify_products_text_5'|trans }}<br/>{{'label.landing_page_identify_products_text_6'|trans }}</li>
+                        </ul>
+                        <!--div class="text-center"><a class="button-orange-sm" href="#">Ver Guia</a></div-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-12 m_t20 hotspot"><img class="img-responsive" src="{{ asset('images/box2.jpg') }}" alt="">
+                <div class="hotspot-info">
+                    <div class="title-info">{{'label.landing_page_focus_sales'|trans }}</div>
+                    <div class="detail-info">{{'label.landing_page_focus_sales_text_1'|trans }}</div>
+                    <div class="hotspot-content">
+                        <div class="s14 p_t10">
+                            {{'label.landing_page_focus_sales_text_2'|trans }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-xs-12 m_t20 hotspot"><img class="img-responsive" src="{{ asset('images/box3.jpg') }}" alt="">
+                <div class="hotspot-info">
+                    <div class="title-info">{{'label.landing_page_register_and_win'|trans }} </div>
+                    <div class="detail-info">{{'label.landing_page_register_and_win_text_1'|trans }}</div>
+                    <div class="hotspot-content">
+                        <div class="s14 p_t10">
+                            {{'label.landing_page_register_and_win_text_2'|trans }}
+                            <br/><br/>
+                             {{'label.landing_page_register_and_win_text_3'|trans }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/bxslider/jquery.bxslider.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.bxslider').bxSlider({
+                pager: false,
+                mode: 'fade',
+                adaptiveHeight: true,
+            });
+        });
+    </script>
+{% endblock javascripts %}
+
+
+

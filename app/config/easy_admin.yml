@@ -1,0 +1,48 @@
+imports:
+    - { resource: "@AttributeBundle/Resources/config/easy_admin.yml" }
+
+easy_admin:
+    site_name: Deal Registration
+    design:
+        form_theme: 'vertical'
+        brand_color: '#CC0000'
+        templates:
+            new: "@Attribute/easy_admin/new.html.twig"
+            edit: "@Attribute/easy_admin/edit.html.twig"
+    entities:
+        Loyalty:
+            class: 'AppBundle\Entity\Loyalty'
+            label: 'Loyalties'
+            list:
+                title: 'Loyalties Settings'
+                fields: ['id', 'code', 'name', 'isActive']
+            form:
+                fields:
+                    - 'code'
+                    - 'name'
+                    - 'wsdl'
+                    - 'apiKey'
+                    - 'namespace'
+                    - 'encrypterKey'
+                    - { property: 'ssoUsername', label: 'SSO Username' }
+                    - { property: 'ssoPrivateKey', label: 'SSO Private Key' }
+                    - { property: 'ssoBaseUrl', label: 'SSO Base URL' }
+                    - property: configuration
+                      type: 'gbenitez\Bundle\AttributeBundle\Form\Type\YamlType'
+                      type_options:
+                          attr: { 'data-ace': 'yaml' }
+                    - 'isActive'
+
+        EmailTemplate:
+            class: 'AppBundle\Entity\EmailTemplate'
+            label: 'Email Templates'
+            list:
+                title: 'Template Settings'
+                fields: ['id', 'code', 'recipient', 'dealCondition', 'loyalty']
+            form:
+                fields:
+                    - { property: 'code', label: 'Template Code' }
+                    - { property: 'dealCondition', label: 'Deal Condition' }
+                    - { property: 'recipient', type: 'choice', label: 'Email To' }
+                    - { property: 'loyalty', type: 'choice', label: 'Loyalty' }
+                    - { property: 'variables', type: 'yaml' }

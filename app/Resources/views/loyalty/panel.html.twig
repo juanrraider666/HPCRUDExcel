@@ -1,0 +1,39 @@
+{#
+
+EJEMPLO DE USO:
+
+{% embed 'panel.html.twig' %}
+
+    {% block header %}Título{% endblock %}
+
+    {% block body %}
+        Contenido
+    {% endblock %}
+
+{% endembed %}
+
+{% embed 'panel.html.twig' {type: 'info'} %}
+
+    {% block header %}Título{% endblock %}
+
+    {% block body %}
+        Contenido
+    {% endblock %}
+
+{% endembed %}
+
+#}
+{% set _header = block('header') %}
+{% set _body = block('body') %}
+{% set _footer = block('footer') %}
+<div class="panel panel-{{ type|default('default') }} {{ class is defined ? class }}" {% if id is defined %}id="{{ id }}"{% endif %}>
+    {% if _header is not empty %}
+        <div class="panel-heading">{{ _header|raw }}</div>
+    {% endif %}
+    {% if _body is not empty %}
+        <div class="panel-body">{{ _body|raw }}</div>
+    {% endif %}
+    {% if _footer is not empty %}
+        <div class="panel-footer">{{ _footer|raw }}</div>
+    {% endif %}
+</div>

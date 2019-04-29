@@ -1,0 +1,106 @@
+{% set page_header = block('page_header') %}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>{% block title %}Toshiba Deal Registration{% if page_header is not empty %} - {{ page_header|raw }}{% endif %}{% endblock %}</title>
+    {#'bundles/kuajax/vendor/pnotify/pnotify.custom.min.css'#}
+    {% block stylesheets %}
+        {% stylesheets
+        'bootstrap-theme/css/bootstrap-theme.min.css'
+        'bootstrap-theme/css/bootstrap.min.css'
+        'jqueryui/jquery-ui.min.css'
+        'css/font-awesome.min.css'
+        'css/loading.css'
+        'css/loyalty.css'
+        filter='cssrewrite'
+        output='compiled/css/bootstrap_theme_styles.css' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block javascripts_head %}
+        {% javascripts
+        'bootstrap-theme/js/bootstrap.min.js'
+        'bootstrap-theme/js/npm.js'
+        'js/jquery-2.1.4.min.js'
+        'jqueryui/jquery-ui.min.js'
+        'js/loyalty_forms.js'
+        'js/loading.js'
+        output="compiled/js/bootstrap_theme_scripts.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script>
+            var LOYALTY_GLOBALS = {
+                img_loading: '{{ asset('images/loading.gif') }}',
+                locale: '{{ app.request.locale }}',
+            };
+        </script>
+        <script src="{{ asset("theme/locales/bootstrap-datepicker.#{app.request.locale}.min.js") }}"></script>
+        <script src="{{ asset("js/loyalty.js") }}"></script>
+        <script src="{{ asset("js/jquery.numeric.js") }}"></script>
+        <script src="{{ asset('js/deals_admin.js') }}"></script>
+
+        <script>
+            $.fn.loading.defaults = {
+                img: '{{ asset('images/loading.gif') }}'
+            };
+        </script>
+
+        <script src="{{ asset('js/iframeResizer.contentWindow.min.js') }}"></script>
+    {% endblock %}
+</head>
+<body {% block body_attr -%}{%- endblock -%}>
+{% block body %}
+
+    {% block header %}
+        <header>
+            {% block primary_header %}
+                {# {{ include('header.html.twig') }} #}
+            {% endblock %}
+
+            {% block sub_header %}
+                <div class="container-fluid bg-top-2">
+                    <div class="container">
+                        <div class="bg-top-1">
+                            {% block page_header_container %}
+                                <span class="title-top">
+                                    {{ page_header|raw }}
+                                </span>
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            {% endblock %}
+        </header>
+    {% endblock %}
+
+    {% block main_content %}
+        <div>
+
+            {% block page_content %}
+                <div class="pull-right">
+                    {% block page_header_right %}{% endblock %}
+                    {% block page_actions %}{% endblock %}
+                </div>
+
+                {{ include(loyalty_templates('flashes.html.twig')) }}
+
+                {% block content %}{% endblock %}
+            {% endblock page_content %}
+
+        </div>
+    {% endblock %}
+
+    {% block footer %}
+
+    {% endblock %}
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}
+</body>
+</html>

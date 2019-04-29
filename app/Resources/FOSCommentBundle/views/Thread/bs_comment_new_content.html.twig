@@ -1,0 +1,25 @@
+{% extends '@FOSComment/Thread/comment_new_content.html.twig' %}
+
+{# botones del formulario para crear comentarios #}
+{% block fos_comment_form_submit %}
+    <div class="margin-top-5 btn-group-sm">
+        <input type="submit" value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_submit{% endtrans %}"
+               class="btn btn-primary"/>
+        {% if parent is not null %}
+            <input type="button"
+                   value="{% trans from 'FOSCommentBundle' %}fos_comment_comment_reply_cancel{% endtrans %}"
+                   class="fos_comment_comment_reply_cancel btn btn-default"/>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{# Título del formulario #}
+{% block fos_comment_form_title %}
+    {% if first %}
+        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline_first{% endtrans %}</h3>
+    {% elseif parent is not null %}
+        <h3>{% trans with {"%name%": parent.author.name } from 'FOSCommentBundle' %}fos_comment_comment_reply_reply_to{% endtrans %}</h3>
+    {% else %}
+        <h3>{% trans from 'FOSCommentBundle' %}fos_comment_comment_new_headline{% endtrans %}</h3>
+    {% endif %}
+{% endblock %}

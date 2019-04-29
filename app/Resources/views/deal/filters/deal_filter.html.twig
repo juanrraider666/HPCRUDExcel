@@ -1,0 +1,30 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+
+    {% block form_start %}
+        {{ form_start(form, {attr: {'novalidate' : 'novalidate'}}) }}
+    {% endblock %}
+        <div class="row">
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    {{ form_label(form.palabrasClave) }}
+                    {{ form_widget(form.palabrasClave) }}
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="form-group">
+                    {{ form_label(form.companyDistributor)}}
+                    <div class="select-style">
+                    {{ form_widget(form.companyDistributor, { attr: { class: 'select-style-table', placeholder: 'Seleccione uno' }}) }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 margin-top-25 right">
+                {% from 'loyalty/buttons.html.twig' import clearFilters %}
+                <button type="submit" class="button-blue">{{'label.my_bills_search_button'|trans }}</button>
+                {{ clearFilters(clear_path) }}
+            </div>
+        </div>
+    {% block form_end %}
+        {{ form_end(form) }}
+    {% endblock %}

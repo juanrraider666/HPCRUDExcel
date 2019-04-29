@@ -1,0 +1,122 @@
+{% use 'bootstrap_3_layout.html.twig' %}
+{% use 'form/phone_fields.html.twig' %}
+
+{%- block form_label -%}
+    {% if label is not sameas(false) -%}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif %}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif %}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %}
+                {{ attrname }}="{{ attrvalue }}"
+              {% endfor %}>
+            {{ label|trans({}, translation_domain) }}{#{% if required %}<span class="ast">*</span>{% endif %}#}
+        </label>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{% block form_widget_simple -%}
+    {% if type is not defined or 'file' != type %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input_form')|trim, placeholder: (attr.placeholder|default(label|trans({}, translation_domain)))}) -%}
+    {% endif %}
+    {{- parent() -}}
+{%- endblock form_widget_simple %}
+
+{% block collection_widget_row %}
+    {% set custom_delete_button = custom_delete_button|default(false) %}
+    {% spaceless %}
+        <div class="loyalty-collection-row{% if not custom_delete_button %} row{% endif %}">
+            {% if allow_delete and not custom_delete_button %}
+                <div class="col-xs-11">
+                    {{ form_row(child, {custom_delete_button: custom_delete_button}) }}
+                </div>
+                <div class="col-xs-1">
+                    <a href="#" class="loyalty-collection-delete"><i class="fa fa-minus-circle"></i></a>
+                </div>
+            {% else %}
+                {{ form_row(child, {custom_delete_button: custom_delete_button}) }}
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block collection_widget %}
+    {% spaceless %}
+        {% if prototype is defined %}
+            {% set child = prototype %}
+            {% set attr = attr|merge({'data-prototype': block('collection_widget_row'),
+            'data-prototype-name': prototype.vars.name, 'class': attr.class|default('') }) %}
+        {% endif %}
+        <div {{ block('widget_container_attributes') }}>
+            {% if allow_add and not custom_add_button|default(false) %}
+                <div><a href="#" class="loyalty-collection-add"><i class="fa fa-plus-circle"></i></a></div>
+            {% endif %}
+            {{ form_errors(form) }}
+            {% for child in form %}
+                {{ block('collection_widget_row') }}
+            {% endfor %}
+            {{ form_rest(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block collection_row %}
+    <div class="form-group collection-container">
+        <div>
+            {{ form_label(form) }}
+            <span class="pull-right" style="margin-right: 5px"><a href="#" class="loyalty-collection-add"><i class="fa fa-plus-circle"></i></a></span>
+        </div>
+        {{ form_widget(form, {custom_add_button: true}) }}
+    </div>
+{% endblock %}
+
+{#{% block attributes_row %}#}
+    {#{% for field in form %}#}
+        {#{{ form_row(field) }}#}
+    {#{% endfor %}#}
+{#{% endblock %}#}
+
+{#{% block attribute_value_row %}#}
+    {#<div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}" id="{{ id }}_container">#}
+        {#{{- form_label(form) -}}#}
+        {#{{- form_widget(form) -}}#}
+        {#{{- form_errors(form) -}}#}
+    {#</div>#}
+{#{% endblock %}#}
+
+{#{% block attribute_value_widget %}#}
+    {#{{- form_widget(form.value) -}}#}
+{#{% endblock %}#}
+
+{%- block phone_admin_row %}
+    {% if show_label %}
+        {{ block('form_row') }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock -%}
+
+{% block date_widget -%}
+    {% if widget == 'single_text' %}
+        {% set type = 'text' %}
+        {% set date_format = 'yyyy-mm-dd' %}
+        {% set attr = attr|merge({'data-provide': 'datepicker', 'data-date-format': date_format|lower}) -%}
+    {% endif %}
+    {{ parent() }}
+{%- endblock date_widget %}
+
+{% block money_widget -%}
+    {{- block('form_widget_simple') -}}
+{%- endblock money_widget %}

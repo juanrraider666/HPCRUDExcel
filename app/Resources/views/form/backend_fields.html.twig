@@ -1,0 +1,20 @@
+{%- block form_rows -%}
+    <div class="row">
+        {% for child in form %}
+            <div class="{{ container_class|default('col-sm-6') }}">
+                {{- form_row(child) -}}
+            </div>
+        {% endfor %}
+    </div>
+{%- endblock form_rows -%}
+
+{%- block _company_file_widget -%}
+{%- block _company_branch_file_widget -%}
+    <input type="file" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    {% if form.parent.vars.data.logo|default(false) %}
+        {# si el logo no es nulo, mostramos la imagen #}
+        <br/>
+        <img {#style="max-width: 400px" #}class="img-responsive img-thumbnail" src="{{ asset("uploads/company/#{form.parent.vars.data.id}/logos/"~form.parent.vars.data.logo) }}" alt="{{ form.parent.vars.data|default(form.parent.vars.data.logo) }}"/>
+    {% endif %}
+{%- endblock -%}
+{%- endblock -%}

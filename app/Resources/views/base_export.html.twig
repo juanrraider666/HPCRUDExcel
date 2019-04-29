@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block page_content %}
+    {% block content_top %}{% endblock %}
+
+    {{ include(loyalty_templates('flashes.html.twig')) }}
+
+    {% block filter %}{% endblock %}
+    {% block paginator %}{% endblock %}
+    {% block content %}{% endblock %}
+
+    <div class="text-right">
+        {% block page_header_right %}{% endblock %}
+        {% block page_actions %}{% endblock %}
+    </div>
+
+    {% block content_bottom %}{% endblock %}
+
+{% endblock page_content %}

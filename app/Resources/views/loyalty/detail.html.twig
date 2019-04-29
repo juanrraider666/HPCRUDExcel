@@ -1,0 +1,83 @@
+{#
+
+  EJEMPLO DE USO:
+
+{% embed 'detail.html.twig' %}
+
+    {% from '@JangoMail/bs3/detail.html.twig' import row, header %}
+    {% block header %}Opciones{% endblock %}
+    {% block body %}
+        {% for name, value in options %}
+            {{ row(name, value) }}
+        {% endfor %}
+        {{ header('Extra Options') }}
+        {{ row('Option 1', 'Value1') }}
+        {{ row('Option 2', 'Value2') }}
+    {% endblock %}
+{% endembed %}
+
+#}
+{% set _header = block('header') %}
+{% set use_header = _header is not empty %}
+{% if use_header %}
+<fieldset {% if use_margin_top is defined %}class="margin-top-15"{% endif %}>
+    <legend class="title-form">{{ _header|raw }}</legend>
+    {% endif %}
+    <div class="row">
+        {% block body %}{% endblock %}
+    </div>
+    {% if use_header %}
+</fieldset>
+{% endif %}
+
+{%- macro item(label, value) -%}
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>{{ label }}</label>
+
+            <p class="form-control-static">{{ value }}</p>
+        </div>
+    </div>
+{%- endmacro -%}
+
+{%- macro raw_item(label, value) -%}
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>{{ label }}</label>
+
+            <p class="form-control-static">{{ value|raw }}</p>
+        </div>
+    </div>
+{%- endmacro -%}
+
+{%- macro row(label, value, row_attrs) -%}
+    <div class="row" {{ row_attrs|raw }}>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>{{ label }}</label>
+
+                <p class="form-control-static">{{ value }}</p>
+            </div>
+        </div>
+    </div>
+{%- endmacro -%}
+
+{%- macro raw_row(label, value, row_attrs) -%}
+    <div class="row" {{ row_attrs|raw }}>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <label>{{ label }}</label>
+
+                <p class="form-control-static">{{ value|raw }}</p>
+            </div>
+        </div>
+    </div>
+{%- endmacro -%}
+
+{%- macro header(label) -%}
+    <legend class="title-form">{{ label }}</legend>
+{%- endmacro -%}
+
+{%- macro divider(attrs) -%}
+</div><div class="row" {{ attrs|raw }}>
+{%- endmacro -%}

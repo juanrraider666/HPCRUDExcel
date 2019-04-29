@@ -1,0 +1,8 @@
+services:
+    app.abstract.deal_soap_client:
+        class: AppBundle\Soap\DealSoapClient
+        abstract: true
+        public: false
+        calls:
+            - [setStopwatch, ["@?debug.stopwatch"]]
+            - [setLogger, ["@?logger"]]

@@ -1,0 +1,11 @@
+{% set _page_header = block('page_header') %}
+{% set _content = block('content') %}
+
+{% embed 'loyalty/modal.html.twig' with {id: 'modal-deal-comments', show_header_close: true, size: _size|default} %}
+    {% block header %}{{ _page_header|raw }}{% endblock %}
+
+    {% block body %}{{ _content|raw }}{% endblock %}
+{% endembed %}
+
+{% block javascripts %}
+{% endblock %}

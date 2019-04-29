@@ -1,0 +1,23 @@
+<li style="background-image: url({{ asset('../images/banner.jpg') }}); background-repeat: no-repeat;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 no_pad">
+                <img src="{{ asset('../images/img_all.gif') }}" alt="" class="img-responsive" style=""/>
+
+                <div class="texto_slide_banner">
+                    <div class="title">{{ 'label.landing_page_text_1'|trans }}</div>
+                    <div class="texto">{{ 'label.landing_page_text_2'|trans }}</div>
+                    <div class="slide_semi_txt">{{ 'label.landing_page_text_3'|trans }}</div>
+                    <div class="btn-bills">
+                        <div class="">
+                            <a href="{{ path('create_deal') }}"
+                               class="button-orange">{{ 'label.landing_page_register_bills'|trans }}</a>
+                            <a href="{{ path('deal_list') }}"
+                               class="button-gray">{{ 'label.landing_page_my_bills'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</li>

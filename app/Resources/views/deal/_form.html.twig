@@ -1,0 +1,265 @@
+
+{% block form_content %}
+    {% set is_new_deal = form.vars.data.id is empty %}
+
+    {% form_theme form 'form/fields.html.twig' %}
+    {% form_theme form 'form/top_errors_fields.html.twig' %}
+
+
+    {% if form.attributes['generada_por_toshiba'] is defined %}
+        {% form_theme form.attributes['generada_por_toshiba'] 'form/checkbox_inline_fields.html.twig' %}
+    {% endif %}
+
+    {% from 'deal/_macro_form_attributes.html.twig' import show_form_attributes, show_form_attributes_col_sm_6 %}
+    {% from 'loyalty/buttons.html.twig' import save, back %}
+    <div class="margin-bottom-15">
+        <div class="row">
+            <div class="col-sm-12 m_b10 s35 semi_txt">
+                {{'label.register_bill_title'|trans }}
+                <hr class="line_black">
+            </div>
+        </div>
+        <form method="post" class="form-loyalty" enctype="multipart/form-data" novalidate>
+            {{ form_row(form._token) }}
+            {% if not form.vars.valid %}
+                <div class="alert-group">
+                    {{ form_errors(form, {show_child_errors: true}) }}
+                </div>
+            {% endif %}
+
+            {% block form_content_subtitle %}
+
+            {% endblock %}
+            <section class="contact-info bg_white ">
+                <div class="row">
+                    <div class="col-sm-12 semi_txt s16 m_t10 m_b30">{{'label.register_bill_information_general'|trans }}</div>
+                    <div class="col-sm-12">
+                        <fieldset class="margin-top-15">
+
+                            <div class="row deal-form-prospectus-container">
+
+                                {{ show_form_attributes_col_sm_6(form, ['deal_prospectus:before']) }}
+
+                                <div class="col-sm-6">
+                                    {{ form_label(form.invoice.companyDistributorId) }}
+                                    <div class="select-style">
+                                        {{ form_widget(form.invoice.companyDistributorId, {attr: { class: 'select-style-table form-control', placeholder: 'Nombre de la empresa' }}) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_row(form.invoice.invoiceNumber, {'label': 'label.register_bill_number_bill_purchase', attr: { class: 'form-control', placeholder: 'label.register_bill_number_bill' }}) }}
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6" id="bu" onchange="desgloce()">
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            {{ form_label(form.invoice.bussinesUnit) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="row">
+                                            <label>{{'label.register_bill_promotion_text_1'|trans }}<b>&nbsp;{{'label.register_bill_promotion_text_2'|trans }}</b>{{'label.register_bill_promotion_text_3'|trans }}<br>{{'label.register_bill_promotion_text_4'|trans }}<br>{{'label.register_bill_promotion_text_5'|trans }}<br>{{'label.register_bill_promotion_text_6'|trans }}<br>{{'label.register_bill_promotion_text_7'|trans }}<br>{{'label.register_bill_promotion_text_8'|trans }}<br>{{'label.register_bill_promotion_text_9'|trans }}</label>
+                                        </div>
+                                    </div>
+                                    <div class="select-style">
+                                        {{ form_widget(form.invoice.bussinesUnit,{ attr: { class: 'form-control select-style-table form-control' }}) }}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 label_mg">
+                                    <div class="col-sm-12">
+                                        <div class="row">
+                                            {{ form_row(form.invoice.purchaseInvoiceDate, {'label': 'label.register_bill_date_bill_purchase'})}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6" id="computo"  style="display:none">
+                                    {{ form_row(form.invoice.computo, {'label': 'label.register_bill_invoice_breakdown_select_computer_text_title_1', attr: { class: 'bold-not padding-right-1' }}) }}
+                                    <label>{{'label.register_bill_invoice_breakdown_text_1'|trans }}<b>&nbsp;{{'label.register_bill_invoice_breakdown_text_2'|trans }} </b> {{'label.register_bill_invoice_breakdown_text_3'|trans }}<b>&nbsp;{{'label.register_bill_invoice_breakdown_text_4'|trans }}</b>&nbsp;{{'label.register_bill_invoice_breakdown_text_5'|trans }}</label> <br><br>
+                                </div>
+                                <div class="col-sm-6" id="computoWinPro" style="display:none">
+                                    {{ form_row(form.invoice.computoWinPro, {'label': 'label.register_bill_invoice_breakdown_select_computer_text_title_2', attr: { class: 'bold-not padding-right-1' }}) }}
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6" id="file" style="display:none">
+                                    {{ form_label(form.invoice.certificado) }}
+                                    {{ form_widget(form.invoice.certificado) }}
+                                    <label class="red_txt">{{'label.register_bill_required'|trans }}</label>
+                                </div>
+                        </fieldset>
+                        <fieldset class="margin-top-15">
+                            <div class="row deal-form-prospectus-container">
+                                <div class="col-sm-6">
+                                    {{ form_row(form.invoice.totalUnits, {'label': 'label.register_bill_total_number_bill', attr: { class: 'form-control' }}) }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form_row(form.invoice.totalQuantity, {'label': 'label.register_bill_total_amount_pesos', attr: { class: 'form-control', placeholder: '$'}}) }}
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-6 col-xs-12" >
+                                    <div id="labelFactura">
+                                        {{ form_label(form.invoice.factura) }}
+                                    </div>
+                                    <div id="labelFacturaCare" style="display:none;">
+                                        <label>  {{'label.register_bill_invoice_breakdown_select_services_text_bill_carepacks'|trans }}</label>
+                                    </div>
+                                    {{ form_widget(form.invoice.factura) }}
+                                    <label id = "labelFacturaCarepack" class="red_txt" style="display: none">{{'label.register_bill_required'|trans }}</label>
+                                </div>
+                            </div>
+                            
+
+                            {#      <div class="col-sm-4{# padding-left-0 padding-left-15-xs deal-form-products-container">#}
+                            {#<div class="col-right">#}
+
+                            {# {{ show_form_attributes(form, ['deal_product:before', 'deal_product summatory']) }}#}
+
+                            {#{{ form_row(form.totalUsd, {'label': 'Total de la oportunidad en US$', attr: { class: 'form-control number', placeholder: 'Total de la oportunidad en US$' }}) }}#}
+
+                            {#{{ show_form_attributes_col_sm_6(form, ['deal_product:after']) }}#}
+                            {#</div>#}
+                            <div class="row m_t20 m_b40">
+                                <hr class="hr">
+                                <div class="col-sm-8 col-xs-12">
+
+                                    {{ form_row(form.invoice.termsAccepted) }}
+
+                                </div>
+                                <div class="col-sm-4 col-xs-12 right m_t15 semi_txt">
+                                    {% block form_content_actions %}
+                                        {% from 'loyalty/buttons.html.twig' import link %}
+                                        {% from 'loyalty/icons.html.twig' import icon %}
+
+                                        {#{{ link(path('deal_list'), 'Ir al Listado', 'btn btn-default back margin-left-5', icon('fa fa-reply')) }}#}
+                                        <button type="submit" class="btn btn-save">
+                                            {% set save = 'btn.save'|trans %}
+                                            {% set update = 'btn.update'|trans %}
+                                            {{- is_new_deal ? save: update }}
+                                        </button>
+                                    {% endblock %}
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>{#fin col#}
+                </div>{#fin row#}
+            </section>
+        </form>
+
+        {% block form_content_comment %}
+            {% if not is_new_deal %}
+                {{ include(loyalty_templates('deal/_comments.html.twig')) }}
+            {% endif %}
+        {% endblock %}
+
+    </div>
+
+{% endblock %}
+
+
+
+{% block form_javascripts %}
+
+
+
+    <script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: new Date(2017, 7, 1),
+                maxDate: 0,
+            });
+            $(":file").filestyle({btnClass: "btn-primary"});
+        });
+    </script>
+    <script>
+
+        function desgloce() {
+            var selects = document.getElementById("appbundle_deal_invoice_bussinesUnit");
+            var selectedValue = selects.options[selects.selectedIndex].text;// will gives u 2
+            document.getElementById("computo").style.display = "none";
+            document.getElementById("computoWinPro").style.display = "none";
+            document.getElementById("file").style.display = "none";
+            document.getElementById("labelFacturaCare").style.display = "none";
+            document.getElementById("labelFactura").style.display = "block";
+            document.getElementById("labelFacturaCarepack").style.display = "none";
+            if(selectedValue == "Cómputo Comercial"){
+                document.getElementById("computo").style.display = "block";
+                document.getElementById("computoWinPro").style.display = "block";
+            }
+            if(selectedValue == "Servicios / Care Packs"){
+                document.getElementById("file").style.display = "block";
+                document.getElementById("labelFactura").style.display = "none";
+                document.getElementById("labelFacturaCare").style.display = "block";
+                document.getElementById("labelFacturaCarepack").style.display = "block";
+            }
+        };
+    </script>
+    <script>
+        $(document).ready(function () {
+            var selects = document.getElementById("appbundle_deal_invoice_bussinesUnit");
+            var selectedValue = selects.options[selects.selectedIndex].text;// will gives u 2
+            desgloce();
+
+            var $country = $('#appbundle_deal_prospectus_country');
+            var $state = $('#appbundle_deal_prospectus_state');
+            var $form = $country.closest('form');
+
+            $country.change(function () {
+                var data = {};
+                data[$country.attr('name')] = $country.val();
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        $state = $state.html($(html).find('#appbundle_deal_prospectus_state').html());
+                    }
+                });
+            });
+
+            $state.change(function () {
+                var data = {};
+                data[$state.attr('name')] = $state.val();
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        $('#appbundle_deal_prospectus_city').html($(html).find('#appbundle_deal_prospectus_city').html());
+                    }
+                });
+            });
+            $('.number').numeric();
+        });
+
+        /* Para calcular el total de US$ de la oportunidad */
+        $(".total-usd-part[data-attribute-name]").on('change keyup', function () {
+            var total = 0;
+
+            $(".total-usd-part[data-attribute-name]").each(function () {
+                total += Number($(this).val());
+            });
+
+            $("#appbundle_deal_totalUsd").val(total);
+        });
+
+
+    $.fn.filestyle.defaults = {
+        'text' : '{{'label.register_bill_button_attach_file'|trans}}',
+        'htmlIcon' : '',
+        'btnClass' : 'btn-secondary',
+        'size' : 'nr',
+        'input' : true,
+        'badge' : false,
+        'badgeName': 'badge-light',
+        'buttonBefore' : false,
+        'disabled' : false,
+        'placeholder': '',
+        'onChange': function () {}
+    };
+
+    </script>
+{% endblock %}
+

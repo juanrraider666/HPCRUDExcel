@@ -1,0 +1,12 @@
+{% extends loyalty_templates("base.html.twig") %}
+{% use 'deal/_form.html.twig' %}
+
+
+
+{% block content %}
+    {{ block('form_content') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ block('form_javascripts') }}
+{% endblock %}

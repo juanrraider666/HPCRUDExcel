@@ -1,0 +1,18 @@
+{% set is_ajax = app.request.xmlHttpRequest %}
+{% set _size = 'lg' %}
+{% extends loyalty_templates(is_ajax ? 'base_modal.html.twig': 'base.html.twig') %}
+
+{% block page_header %}
+    Comentarios de la Oportunidad #{{ deal.id }}
+{% endblock %}
+
+{% block content %}
+    <div id="fos_comment_thread_{{ thread.id }}" data-comment-thread-container="{{ thread.id }}">
+        {{ include('@FOSComment/Thread/comments.html.twig') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ include('@FOSComment/_load_script.html.twig', {container_suffix: thread.id}) }}
+{% endblock %}

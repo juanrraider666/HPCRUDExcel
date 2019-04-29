@@ -1,0 +1,103 @@
+# titles
+title.page_error: Error al cargar la página
+title.deal_information: Información de la Oportunidad
+title.show_deal: Mostrar Oportunidad
+title.prospectus_information: Información del Prospecto
+title.page_error: Error al cargar la página
+title.page_not_found: Página no Encontrada
+title.deal_responsible: Responsables
+
+# labels
+label.select: Seleccionar
+label.page_error.retry: Por favor <a href="%url%">intente nuevamente</a>
+label.page_error.message: Ha ocurrido un problema al intentar cargar la página
+label.year: Año
+label.month: Mes
+label.filter_by: Filtrar por
+label.clear: Limpiar
+label.search: Buscar
+label.summary: Resumen
+label.list.no_items: No hay elementos para mostrar
+label.country: País
+label.company_type: Tipo de Empresa
+label.profile: Perfil
+label.show_filters: Mostrar Filtros
+label.actions: Acciones
+label.company_name: Nombre de la Empresa
+label.address: Dirección
+label.state: Estado
+label.city: Ciudad
+label.zipcode: Código Postal
+label.website: Website
+label.contact_firstname: Nombre del Contacto
+label.contact_lastname: Apellido del Contacto
+label.contact_position: Cargo del Contacto
+label.email: Email del Contacto
+label.phone: Teléfono
+label.project_name: Nombre del Proyecto
+label.project_description: Descripción del Proyecto
+label.project_reason: Razón del Proyecto
+label.project_status: Estatus del Proyecto
+label.status: Estatus
+label.comment: Comentarios
+label.yes: Si
+label.no: No
+label.confirm: Confirmar
+label.deal_list: Listado de Oportunidades
+label.page_not_found.message: La página que usted está buscando no existe.
+label.page_not_found.validate_url: Lo invitamos a validar la dirección, pues es posible que no exista o haya sido eliminada.
+label.back_to_homepage: Regresar a la página de inicio
+label.page_error.message: Ha ocurrido un problema al intentar cargar la página
+label.page_error.retry: Por favor <a href="%url%">intente nuevamente</a>
+label.created_by: Creada por
+label.approved_by: Aprobada por
+label.name: Nombre
+label.date: Fecha
+
+
+# Status
+OPEN_STATE: Abierto
+IN_NEGOTIATION_STATE: En Negociación
+ON_HOLD_STATE: En Pausa
+WON_STATE: Ganada
+LOST_STATE: Perdida
+LOSS_STATE: Perdida
+REGISTERED_STATE: Registrada
+APPROVED_STATE: Aprobada
+REJECTED_STATE: Rechazada
+NOT_WON_STATE: No Ganada
+CANCELED_STATE: Cancelada
+EXPIRED_STATE: Expirada
+CONFIRMED: Confirmada
+CONFIRMED_STATE: Confirmada
+CLOSE_TO_EXPIRE: Próxima a Expirar
+CONDITION_CONFIRMED: Confirmada
+CONDITION_CLOSE_TO_EXPIRE: Próxima a Expirar
+
+# Buttons
+btn.back: Atrás
+btn.search: Buscar
+btn.clear: Limpiar
+btn.show: Mostrar
+btn.edit: Editar
+btn.close: Cerrar
+btn.change_status: Cambiar Estatus
+btn.approve: Aprobar
+btn.won: Ganada
+btn.loss: Perdida
+btn.canceled: Cancelada
+btn.reject: Rechazar
+btn.show_comments: Ver Comentarios
+btn.confirm: Confirmar
+
+# Flash Messages
+flash.approved: La oportunidad se ha aprobado exitosamente!
+flash.confirmed: La oportunidad se ha confirmado exitosamente!
+
+# Headers
+header.approve_deal: Aprobar Oportunidad
+header.won_deal: Oportunidad Ganada
+header.loss_deal: Oportunidad Perdida
+header.cancel_deal: Cancelar Oportunidad
+header.reject_deal: Rechazar Oportunidad
+header.confirm_deal: Confirmar Oportunidad

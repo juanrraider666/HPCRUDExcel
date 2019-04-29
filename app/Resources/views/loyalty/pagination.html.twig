@@ -1,0 +1,90 @@
+{#
+/**
+ * @file
+ * Twitter Bootstrap v3 Sliding pagination control implementation.
+ *
+ * View that can be used with the pagination module 
+ * from the Twitter Bootstrap CSS Toolkit
+ * http://getbootstrap.com/components/#pagination
+ *
+ * @author Pablo Díez <pablodip@gmail.com>
+ * @author Jan Sorgalla <jsorgalla@gmail.com>
+ * @author Artem Ponomarenko <imenem@inbox.ru>
+ * @author Artem Zabelin <artjomzabelin@gmail.com>
+ */
+#}
+{% set use_container = use_container is defined ? use_container : true %}
+
+{% if pageCount > 1 %}
+    {% if use_container %}<div class="pagination-layout {{ container_class is defined ? container_class }}">{% endif %}
+    <ul class="pagination {% if size is defined and size is not empty %}pagination-{{ size }}{% endif %}">
+
+       
+
+        {% if startPage > 1 %}
+            <li>
+                <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+            </li>
+            {% if startPage == 3 %}
+                <li>
+                    <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+                </li>
+            {% elseif startPage != 2 %}
+                <li class="disabled">
+                    <span>&hellip;</span>
+                </li>
+            {% endif %}
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <li>
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                </li>
+            {% else %}
+                <li class="active">
+                    <span>{{ page }}</span>
+                </li>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if pageCount > endPage %}
+            {% if pageCount > (endPage + 1) %}
+                {% if pageCount > (endPage + 2) %}
+                    <li class="disabled">
+                        <span>&hellip;</span>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+            <li>
+                <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+            </li>
+        {% endif %}
+
+        {% if previous is defined %}
+            {#<li>#}
+                <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}" class="fa fa-angle-left fa-2x"></a>
+            {#</li>#}
+            {#{% else %}#}
+            {#<li class="disabled">#}
+            {#<span>&laquo;&nbsp;{{ 'label.previous'|trans }}</span>#}
+            {#</li>#}
+        {% endif %}
+
+        {% if next is defined %}
+            {#<li>#}
+                <a href="{{ path(route, query|merge({(pageParameterName): next})) }}" class="fa fa-angle-right fa-2x"></a>
+            {#</li>#}
+        {#{% else %}#}
+            {#<li class="disabled">#}
+                {#<span>{{ 'label.next'|trans }}&nbsp;&raquo;</span>#}
+            {#</li>#}
+        {% endif %}
+    </ul>
+    {% if use_container %}</div>{% endif %}
+{% endif %}

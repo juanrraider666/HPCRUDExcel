@@ -1,0 +1,75 @@
+{% extends loyalty_templates("base_admin.html.twig") %}
+
+{% from 'loyalty/buttons.html.twig' import simple_link as edit %}
+{% from 'loyalty/icons.html.twig' import icon_edit %}
+{% from _self import show_attributes %}
+
+
+
+{% block content %}
+    
+    
+    <fieldset>
+
+        <div class="table-responsive">
+            <table class="table deal-show-info-container">
+
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_id'|trans }}</strong></td>
+                    <td>{{ deal.correlative }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_partner'|trans }}</strong></td>
+                    <td>{{ deal.companyType}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_company'|trans }}</strong></td>
+                    <td>{{ deal.companyName }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_buy_to_company'|trans }}</strong></td>
+                    <td>{{ deal.companyDistributor }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_number_bill'|trans }}</strong></td>
+                    <td>{{ deal.invoiceNumber }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_type_product'|trans }}</strong></td>
+                    <td>{{ deal.tipoFactura }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_date_bill'|trans }}</strong></td>
+                    <td>{{ deal.invoiceDate|date('Y-m-d') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_units'|trans }}</strong></td>
+                    <td>{{ deal.totalUnits}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_total_bill'|trans }}</strong></td>
+                    <td>{{ deal.totalQuantity|number_format(0, '.', ',')}}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{'label.my_bills_list_actions_see_details_view_status'|trans }}</strong></td>
+                    <td>{{ deal.status|trans }}</td>
+                </tr>
+                {%if deal.computo is not null %}
+                    <tr>
+                        <td><strong>{{'label.my_bills_list_actions_see_details_view_contains'|trans }}</strong></td>
+                        <td>{{ deal.computo }}</td>
+                    </tr>
+                {%endif%}
+                
+                
+            </table>
+        </div>
+    </fieldset>
+
+   
+
+    {#{ include(loyalty_templates('deal/_comments.html.twig')) }#}
+
+{% endblock %}
+
+

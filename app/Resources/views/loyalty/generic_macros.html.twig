@@ -1,0 +1,9 @@
+{%- macro static_form_field(label, value, raw) -%}
+    <div class="form-group">
+        <label>{{ label }}</label>
+
+        <p class="form-control-static">
+            {% if raw %}{{ value|raw }}{% else %}{{ value }}{% endif %}
+        </p>
+    </div>
+{%- endmacro -%}

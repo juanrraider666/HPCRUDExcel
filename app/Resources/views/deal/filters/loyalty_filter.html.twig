@@ -1,0 +1,47 @@
+{% form_theme form 'form/fields.html.twig' %}
+
+<div>
+    <div class="row margin-top-15">
+        {% block form_start %}
+            {{ form_start(form, {attr: {'novalidate' : 'novalidate'}}) }}
+        {% endblock %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2">
+                    <label class="bold title-find control-label">{{ 'label.filter_by'|trans }}</label>
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.month) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.year) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.country) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.company_type) }}
+                </div>
+                <div class="col-md-2">
+                    {{ form_row(form.profile) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right margin-top-15">
+                        {% from 'loyalty/buttons.html.twig' import search, clearFilters %}
+                        {{ search() }} {{ clearFilters(clear_path) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    {% block form_end %}
+        {{ form_end(form) }}
+    {% endblock %}
+</div>

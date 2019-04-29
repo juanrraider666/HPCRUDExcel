@@ -1,0 +1,17 @@
+services:
+    app.security.encrypter:
+        class: AppBundle\Util\Encrypter
+
+    app.security.voter.upload_support:
+        class: AppBundle\Security\Voter\UploadSupportVoter
+        public: false
+        autowire: true
+        tags:
+            - { name: security.voter }
+
+    app.security.roles_resolver.loyalty:
+        class: AppBundle\Security\Role\LoyaltyRolesResolver
+        public: false
+        arguments:
+            - "@app.loyalty.loyalty_identifier"
+            - "@simple_sso_client.security.roles_resolver.default"
